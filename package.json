@@ -1,0 +1,27 @@
+{
+  "name": "wechat-turntable",
+  "version": "1.0.0",
+  "description": "下决定小转盘",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessie975/wechat-turntable.git"
+  },
+  "keywords": [],
+  "author": "jessie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jessie975/wechat-turntable/issues"
+  },
+  "homepage": "https://github.com/jessie975/wechat-turntable#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "request": "^2.88.0"
+  }
+}

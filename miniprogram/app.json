@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/manage/manage",
+    "pages/manage/add/add",
+    "pages/hot/hot",
+    "pages/history/history"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFF",
+    "navigationBarTitleText": "下决定",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "selectedColor": "#000",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "/images/icon/home.png",
+        "selectedIconPath": "/images/icon/home_on.png"
+      },
+      {
+        "pagePath": "pages/manage/manage",
+        "text": "转盘管理",
+        "iconPath": "/images/icon/manage.png",
+        "selectedIconPath": "/images/icon/manage_on.png"
+      },
+      {
+        "pagePath": "pages/hot/hot",
+        "text": "热门决定",
+        "iconPath": "/images/icon/hot.png",
+        "selectedIconPath": "/images/icon/hot_on.png"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "历史记录",
+        "iconPath": "/images/icon/history.png",
+        "selectedIconPath": "/images/icon/history_on.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

@@ -1,0 +1,30 @@
+/**app.wxss**/
+@import 'style/iconfont.wxss';
+@import 'style/main.wxss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+} 
+
+button {
+  background-color: #fff;
+}
+
+button {
+  border-radius: 0;
+}
+
+button::after{
+  border: none;
+}
+
+page {
+  width: 750rpx;
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
