@@ -114,6 +114,7 @@ Page({
   },
 
   async getDataFormUserDb() {
+    $.loading()
     const {result} = await model.getUserDecide()
     if (result.length !== 0) {
       const {options, title, _id} = result[0]
@@ -122,6 +123,7 @@ Page({
         title,
         _id
       })
+      $.hideLoading()
     } else {
       this.setData({
         options: defalutSector,
@@ -131,6 +133,7 @@ Page({
   },
 
   async getDecide() { 
+    $.loading()
     const decide = app.globalData.decide
     if (decide) {
       const options = this.dealData(decide.options)
@@ -139,14 +142,15 @@ Page({
         options,
         _id: decide._id
       })
+      $.hideLoading()
     } else {
       this.getDataFormUserDb()
     }
   },
 
   async fromShare(option) {
-    const {data} = await model.toHomeFromShare(option._id)
-    const {options, title} = data.data[0]
+    const {data} = await model.toHomeFromShare(option.id)
+    const {options, title} = data[0]
     this.setData({
       title,
       options: this.dealData(options)
@@ -160,9 +164,10 @@ Page({
       this.setData({
         result: options.checkIndex
       })
+    } else {
+      // 先从全局变量里取，如果没有则从用户最近创建的决定里面取，如果还是没有就给默认的
+      this.getDecide()
     }
-    // 先从全局变量里取，如果没有则从用户最近创建的决定里面取，如果还是没有就给默认的
-    this.getDecide()
   },
 
   onReady: function () {

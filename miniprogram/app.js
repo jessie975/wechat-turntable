@@ -20,7 +20,7 @@ App({
   },
   initEnv() {
     const envVersion = __wxConfig.envVersion
-    const env = envVersion === 'develop' ? 'turntable-dev' : 'turntable-prod'
+    const env = envVersion === 'develop' ? 'turntable-dev' : 'turntable-dev'
     wx.cloud.init({
       env,
       traceUser: true

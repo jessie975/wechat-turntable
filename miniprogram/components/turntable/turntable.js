@@ -104,28 +104,29 @@ Component({
       }, 2000)
     },
     /**
+     * 旋转结束
+     */
+    rotateEnd() {
+      const {hasMusic, checkedIndex} = this.data
+      this.setData({canClick: true})
+      hasMusic && this.playMusic()
+      // 将结果传递给父组件
+      this.triggerEvent("getResult", checkedIndex )
+    },
+    /**
      * 自动旋转
      */
     rotateAuto() {
       const {
-        canClick, sector, context, radius, hasMusic, hasVibrate, checkIndex
+        canClick, sector, context, radius, hasVibrate, checkIndex
       } = this.data
       this.triggerEvent("rotateStart")
       if (canClick) { // 转盘旋转结束，可再次旋转
         this.setData({canClick: false})
         const {distance, checkedIndex} = distanceToStop(sector, checkIndex)
-        
+        this.setData({checkedIndex})
         hasVibrate && this.playVibrate()
-        rotate(context, sector, radius, radius, radius, distance, canClick)
-  
-        setTimeout(() => {
-          this.setData({canClick: true})
-          hasMusic && this.playMusic()
-
-          // 将结果传递给父组件
-          this.triggerEvent("getResult", checkedIndex )
-
-        }, 5000) // 5s后转盘旋转结束
+        rotate(context, sector, radius, radius, radius, distance, 0, this.rotateEnd.bind(this))
       }
     },
     touchStart(e) {

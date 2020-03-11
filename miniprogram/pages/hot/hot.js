@@ -26,7 +26,7 @@ Page({
   toHome(e) {
     const {list} = this.data
     const {title, options, _id} = list[e.target.dataset.index]
-    app.globalData.showSector = {
+    app.globalData.decide = {
       title,
       options,
       _id

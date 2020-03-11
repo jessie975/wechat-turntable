@@ -2,7 +2,7 @@ import {draw} from './draw'
 
 /**
  * 自定义canvas.requestAnimationFrame方法
- * @param {*} callback
+ * @param {Function} callback
  */
 
 let lastFrameTime = 0
@@ -16,11 +16,12 @@ const doAnimationFrame = (callback) => {
 
 /**
  * 确定随机停下的点与起点的距离
- * @param {*} series 扇形块
- * @param {*} checkIndex 指定结果index
+ * @param {Array} series 扇形块
+ * @param {Number} checkIndex 指定结果index
  */
 
 export const distanceToStop = (series, checkIndex = -1) => {
+  console.log('distanceToStop -> series', series)
   let middleDegrees = 0 // 选中区的中间角度
   let distance = 0
   // 映射出每个扇形区的middleDegrees
@@ -28,6 +29,7 @@ export const distanceToStop = (series, checkIndex = -1) => {
     const itemRadian = (Math.PI * 2) / series.length
     return itemRadian * index + (itemRadian * (index + 1) - itemRadian * index) / 2
   })
+  console.log('distanceToStop -> seriesToDegreesList', seriesToDegreesList)
   // 随机生成选中块索引
   let currentPieIndex = checkIndex === -1 ? Math.floor(Math.random() * series.length) : checkIndex
   middleDegrees = seriesToDegreesList[currentPieIndex]
@@ -43,28 +45,31 @@ export const distanceToStop = (series, checkIndex = -1) => {
 
 /**
  * 自动旋转动画
- * @param {*} context canvas上下文
- * @param {*} series  转盘块
- * @param {*} x 原点x
- * @param {*} y 原点y
- * @param {*} r 转盘半径
- * @param {*} distance 选中项跑到指针位置要转动的距离
- * @param {*} startAngle 开始的角度
+ * @param {Object} context canvas上下文
+ * @param {Array} series  转盘块
+ * @param {Number} x 原点x
+ * @param {Number} y 原点y
+ * @param {Number} r 转盘半径
+ * @param {Number} distance 选中项跑到指针位置要转动的距离
+ * @param {Number} startAngle 开始的角度
  */
-export const rotate = (context, series, x, y, r, distance, startAngle = 0) => {
+export const rotate = (context, series, x, y, r, distance, startAngle = 0, rotateEnd) => {
   const changeRadian = (distance - startAngle) / 40
   startAngle += changeRadian
 
-  if (distance - startAngle <= 0.05) return {state: true}
+  if (distance - startAngle <= 0.05) {
+    rotateEnd()
+    return
+  }
   draw(context, series, x, y, r, startAngle)
   // 循环调用rotate方法，使转盘连续绘制， 形成旋转视觉
-  doAnimationFrame(rotate.bind(this, context, series, x, y, r, distance, startAngle))
+  doAnimationFrame(rotate.bind(this, context, series, x, y, r, distance, startAngle, rotateEnd))
 }
 
 /**
  * 手动旋转
- * @param {*} param0 开始点与中心点的距离
- * @param {*} param1 结束点与中心点的距离
+ * @param {Number} param0 开始点与中心点的距离
+ * @param {Number} param1 结束点与中心点的距离
  */
 
 const getAngle = ({x: x1, y: y1}, {x: x2, y: y2}) => {
@@ -76,11 +81,11 @@ const getAngle = ({x: x1, y: y1}, {x: x2, y: y2}) => {
 
 /**
  * 手动旋转时移动的距离
- * @param {*} moveX 移动点X
- * @param {*} moveY 移动点Y
- * @param {*} w 中心点X，Y和半径R
- * @param {*} startX 鼠标落下的点X
- * @param {*} startY 鼠标落下的点Y
+ * @param {Number} moveX 移动点X
+ * @param {Number} moveY 移动点Y
+ * @param {Number} w 中心点X，Y和半径R
+ * @param {Number} startX 鼠标落下的点X
+ * @param {Number} startY 鼠标落下的点Y
  */
 
 export const getDistance = (moveX, moveY, w, startX, startY) => {

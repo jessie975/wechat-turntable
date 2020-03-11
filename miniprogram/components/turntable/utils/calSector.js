@@ -1,7 +1,7 @@
 /**
  * 处理数据
- * @param {*} sector 扇区
- * @param {*} starAngle：开始的角度
+ * @param {Array} sector 扇区
+ * @param {Number} starAngle：开始的角度
  */
 export const calAngle = (sector, startAngle) => {
   // 计算数据总和
@@ -21,9 +21,9 @@ export const calAngle = (sector, startAngle) => {
 
 /**
  * 处理文本换行:将满足定义的宽度的文本作为value单独添加到数组中,最后返回的数组的每一项就是我们处理后的每一行了
- * @param {*} context         画布上下文
- * @param {*} text            需要处理的长文本
- * @param {*} maxLineWidth    自己定义的一行文本最大的宽度
+ * @param {Object} context         画布上下文
+ * @param {String} text            需要处理的长文本
+ * @param {Number} maxLineWidth    自己定义的一行文本最大的宽度
  */
 export const getLineTextList = (context, text, maxLineWidth) => {
   const wordList = text.split('')

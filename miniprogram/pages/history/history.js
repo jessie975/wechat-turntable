@@ -10,14 +10,15 @@ Page({
   },
 
   cleanHistory() {
+    const that = this
     wx.showModal({
       title: '提示',
       content: '确认清除所有历史记录吗？',
       success (res) {
         if (res.confirm) {
           model.cleanHistory()
-          this.setData({isEmpty: true})
-          this.getData()
+          that.setData({isEmpty: true})
+          that.getData()
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
