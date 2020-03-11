@@ -1,1 +1,47 @@
-/* pages/manage/manage.wxss */
+.card-box {
+  width: 750rpx;
+  margin-top: 30rpx;
+  position: relative;
+}
+.add-decide {
+  width: 300rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin: 80rpx auto;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 15rpx;
+  box-shadow: 5rpx 5rpx 5rpx rgba(0, 0, 0, 0.1);
+}
+.add-btn {
+  width: 100rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 50rpx;
+  right: 50rpx;
+  box-shadow: 5rpx 5rpx 20rpx rgba(0, 0, 0, 0.5);
+}
+.move {
+  width: 130rpx;
+  height: 100%;
+  position: absolute;
+  border-top-right-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  text-align: center;
+  line-height: 248rpx;
+  bottom: 0;
+  right: -130rpx;
+  opacity: 0.8;
+}
+.right {
+  transition: all .6s ease-in-out 0s;
+  transform: translateX(0);
+}
+
+.left {
+  transition: all .6s ease-in-out 0s;
+  transform: translateX(-130rpx);
+}

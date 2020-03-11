@@ -11,9 +11,10 @@
 	},
 	"appid": "wx843a6e62022f9b74",
 	"projectname": "wechat-turntable",
-	"libVersion": "2.8.1",
+	"libVersion": "2.10.2",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
 		"search": {
 			"current": -1,

@@ -1,2 +1,22 @@
-<!--pages/history/history.wxml-->
-<text>pages/history/history.wxml</text>
+<view class="empty" style="width: 350rpx; height: 300rpx; margin: 250rpx auto;text-align: center;" wx:if="{{isEmpty}}">
+  <image src="../../images/empty.png" style="width: 100%; height: 100%"/>
+  <view class="text-lg margin-top">空空如也</view>
+</view>
+
+<view class="clean" bindtap="cleanHistory" wx:if="{{!isEmpty}}">
+  <text class="margin-right-sm">清空记录</text>
+  <text class="iconfont icon-qingkong text-xxl"></text>
+</view>
+<view class="card bg-white shadow padding-sm" wx:for="{{list}}" wx:key="{{index}}">
+  <view class="title margin-bottom-sm flex justify-between">
+    <view class="text-bold text-lg flex-sub">{{item.title}}</view>
+    <button open-type="share" style="width: 55rpx; height: 55rpx; padding: 0;" wx:if="{{!item.isCheat}}" data-index="{{index}}">
+      <image src="../../images/share.png" style="width: 100%; height: 100%;"/>
+    </button>
+    <view class="tip" wx:if="{{item.isCheat}}">作弊模式</view>
+  </view>
+  <view class="footer flex justify-between align-end">
+    <view class="result flex-sub text-cut"><text class="text-green">答案：</text>{{item.result}}</view>
+    <view class="time text-gray">{{item.date}}</view>
+  </view>
+</view>

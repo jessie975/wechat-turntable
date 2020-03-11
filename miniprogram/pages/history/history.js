@@ -1,46 +1,55 @@
-// pages/history/history.js
+import Model from '../../model/model'
+import {formatDate} from '../../utils/util'
+
+const model = new Model()
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
+    list: [],
+    isEmpty: false
+  },
+
+  cleanHistory() {
+    wx.showModal({
+      title: '提示',
+      content: '确认清除所有历史记录吗？',
+      success (res) {
+        if (res.confirm) {
+          model.cleanHistory()
+          this.setData({isEmpty: true})
+          this.getData()
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+
+  async getData() {
+    const {data} = await model.getUserInfo()
+    const list = data[0].history
+
+    if (list.length !== 0) {
+      list.forEach(item => {
+        item.date = formatDate(item.date)
+      })
+    }
+    this.setData({
+      list,
+      isEmpty: list.length === 0
+    })
+  },
+
+  onLoad() {
+    this.getData()
+  },
+
+  onReady() {
 
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  onShow() {
+    this.getData()
   },
 
   /**
@@ -60,7 +69,25 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage(e) {
+    const {list} = this.data
+    let index = -1
+    let title = ''
+    let path = ''
+    if (e.from === 'button') {
+      index = e.target.dataset.index
+      const target = list[index]
+      title = `我在${target.title}里选中了${target.result}`
+      path = `/pages/home/home?id=${target._id}&checkIndex=${target.checkIndex}`
+    }
+    
+    return {
+      title,
+      path,
+      imageUrl: '../../images/shareImg.jpg',
+      success: function (res) {
+        console.log('成功', res)
+      }
+    }
   }
 })

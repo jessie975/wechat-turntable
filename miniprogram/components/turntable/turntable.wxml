@@ -1,0 +1,12 @@
+<view class="turn-table" style="width: {{width * 2 + 40}}rpx; height: {{width * 2 + 40}}rpx">
+	<view class="turn" style="width: {{width * 2}}rpx; height: {{width * 2}}rpx">
+		<canvas 
+			id="{{canvasId}}"
+			canvas-id="{{canvasId}}"
+			style="width:100%; height:100%;"
+			bindtouchstart="touchStart"
+			bindtouchmove="touchMove"
+			bindtouchend="touchEnd">
+		</canvas>
+	</view>
+</view>

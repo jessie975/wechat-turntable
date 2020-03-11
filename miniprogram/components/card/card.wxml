@@ -1,0 +1,16 @@
+<view class="card bg-white shadow">
+  <view class="title text-lg text-bold flex justify-center">
+    <view class="title-content">
+      <text class="text">{{title}}</text>
+      <view class="line"></view>
+    </view>
+    <view class="edit" style="width: 40rpx; height: 40rpx; position: absolute; right: 30rpx" catchtap="editDecide" data-index="{{index}}">
+      <image src="../../images/edit.png" style="width: 100%; height: 100%;"/>
+    </view>
+  </view>
+  <view class="vice-title">选项列表</view>
+  <scroll-view scroll-x="{{true}}" class="content bg-gray" enable-flex="{{true}}">
+    <text class="item text-df" wx:for="{{sector}}" wx:key>{{item.text}}</text>
+  </scroll-view>
+  <slot></slot>
+</view>

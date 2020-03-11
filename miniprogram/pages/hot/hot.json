@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "热门决定",
-  "usingComponents": {}
+  "usingComponents": {
+    "card": "../../components/card/card"
+  }
 }

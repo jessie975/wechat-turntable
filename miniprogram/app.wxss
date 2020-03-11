@@ -1,6 +1,7 @@
 /**app.wxss**/
 @import 'style/iconfont.wxss';
 @import 'style/main.wxss';
+@import 'style/animation.wxss';
 
 .container {
   display: flex;
@@ -11,10 +12,12 @@
 
 button {
   background-color: #fff;
-}
-
-button {
   border-radius: 0;
+  width: 0;
+  padding: 0;
+  line-height: 0;
+  font-weight: 0;
+  padding-right: 0;
 }
 
 button::after{

@@ -1,2 +1,27 @@
-<!--miniprogram/pages/manage/add/add.wxml-->
-<text>miniprogram/pages/manage/add/add.wxml</text>
+<view class="modal flex justify-end margin">
+  <view class="modal-btn {{isAverage? 'bg-olive':'bg-white'}}" bindtap="changeModal" data-type="average">概率均分</view>
+  <view class="modal-btn {{isCustom? 'bg-olive':'bg-white'}} margin-left" bindtap="changeModal" data-type="custom">自定义概率</view>
+</view>
+
+<view class="form">
+  <view class="group shaow bg-white flex align-center">
+    <text class="iconfont icon-liebiao text-drakGray"></text>
+    <input class="margin-left" placeholder="有什么困扰着你呢？" bindinput="inputTitle" value="{{title}}"/>
+  </view>
+  <view class="group shaow bg-white flex align-center margin-top{{isCustom? '-lg':''}}" wx:for="{{options}}" wx:key>
+    <text class="iconfont icon-jian_ text-orange" bindtap="delete" data-index="{{index}}"></text>
+    <input class="margin-left" style="width: 100%;" placeholder="选项" data-index="{{index}}" value="{{item.text}}" bindinput="inputValue"/>
+    <view class="probability bg-white flex" wx:if="{{isCustom}}">
+      <view class="progress bg-green active striped" style="width: {{item.width}}px">
+        <view class="move-btn bg-white" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend" data-index="{{index}}"></view>
+      </view>
+      <text class="number text-bold">{{item.order}}%</text>
+    </view>
+  </view>
+  <view class="group shaow bg-white flex align-center margin-top{{isCustom? '-lg':''}}" bindtap="add">
+    <text class="iconfont icon-tianjia text-green"></text>
+    <input class="margin-left" placeholder="添加选项" disabled="{{true}}"/>
+  </view>
+</view>
+
+<view class="submit bg-white" bindtap="submit">{{isUpdate? '更新转盘':'生成转盘'}}</view>

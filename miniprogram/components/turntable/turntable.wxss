@@ -1,0 +1,12 @@
+.turn-table {
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 5rpx 5rpx 10rpx #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.turn {
+  border-radius: 50%;
+  overflow: hidden;
+}

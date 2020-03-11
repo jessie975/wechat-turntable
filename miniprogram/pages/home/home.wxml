@@ -1,2 +1,46 @@
-<!--pages/home/home.wxml-->
-<text>pages/home/home.wxml</text>
+<!-- 标题-结果 -->
+<view class="title-result flex flex-direction justify-center align-center margin-top-lg">
+  <view class="title text-xl text-bold">{{title}}</view>
+  <view class="result text-df margin-top text-bold animation-scale-down">{{options[result].text || '...........'}}</view>
+</view>
+<!-- 转盘 -->
+<view class="margin-top-xxl flex justify-center" wx:if="{{!showCheat}}">
+  <turntable
+    canvasId="myPizza"
+    sector="{{options}}"
+    hasMusic="{{music}}"
+    hasVibrate="{{vibrate}}"
+    checkIndex="{{checkIndex}}"
+    bind:getResult="getResult"
+    bind:rotateStart="rotateStart"
+  ></turntable>
+</view>
+<!-- 自定义项 -->
+<view class="setting flex flex-direction justify-between">
+  <view class="cheat-music flex justify-between">
+    <view class="cheat bg-white {{showSetting?'animation-scale-up':'hidden'}}" bindtap="showCheat"><text class="iconfont icon-keji text-xxl text-drakGray text-bold text-green"></text></view>
+    <view class="music bg-white {{showSetting?'animation-scale-up':'hidden'}}" bindtap="changeSetting" data-type="music"><text class="iconfont icon-shengyin text-xxl text-bold {{music?'text-yellow':'text-gray'}}"></text></view>
+  </view>
+  <view class="vibrate-btn flex justify-between">
+    <view class="vibrate bg-white {{showSetting?'animation-scale-up':'hidden'}}" bindtap="changeSetting" data-type="vibrate"><text class="iconfont icon-zhendongmoshi text-xxl text-bold {{vibrate?'text-blue':'text-gray'}}"></text></view>
+    <view class="btn iconfont text-white bg-orange icon-{{showSetting?'quxiao rotate-in':'click rotate-out'}}" bindtap="showSetting"></view>
+  </view>
+</view>
+<!-- 作弊模式弹框 -->
+<view class="cu-modal {{showCheat?'show':''}}" bindtap="hiddenCheat">
+  <view class="bg-white cu-dialog padding-lg">
+    <view class="cheat-img bg-white flex justify-center align-center">
+      <image src="../../images/cheat.png" style="width: 80%; height: 80%;"/>
+    </view>
+    <view class="title flex justify-between padding-left padding-right margin-bottom">
+      <view class="text-bold text-lg">作弊模式</view>
+      <view class="text-bold text-lg">指定结果</view>
+    </view>
+    <view class="options flex flex-wrap justify-center">
+      <view class="item {{checkIndex === index ? 'choosed bg-green text-white':''}}" wx:for="{{options}}" wx:key="{{index}}" data-index="{{index}}" catchtap="chooseCheat">{{item.text}}</view>
+    </view>
+    <view class="submit" wx:if="{{hasChoose}}" catchtap="hiddenCheat">确定</view>
+  </view>
+</view>
+
+

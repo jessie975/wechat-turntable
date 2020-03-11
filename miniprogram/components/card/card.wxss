@@ -1,0 +1,33 @@
+@import '../../style/main.wxss';
+
+.card {
+  width: 700rpx;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  position: relative;
+  overflow: hidden;
+}
+.line {
+  background-color: #7abd9a;
+  height: 5rpx;
+  filter: blur(2px);
+  margin-top: -6rpx;
+}
+.vice-title {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.content {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  overflow: hidden;
+  border-radius: 5rpx;
+  display: inline-block;
+  white-space: nowrap;
+}
+.item {
+  display: inline-block;
+  margin: 0 40rpx;
+}

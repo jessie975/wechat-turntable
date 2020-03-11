@@ -1,1 +1,82 @@
-/* miniprogram/pages/manage/add/add.wxss */
+.modal-btn {
+  border: 1px solid #fff;
+  padding: 10rpx 40rpx;
+  border-radius: 30rpx;
+}
+.form, .submit {
+  width: 700rpx;
+  margin: 0 auto;
+}
+.group {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 10rpx;
+  padding: 0 50rpx;
+  position: relative;
+}
+.submit {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border: 1px solid #eee;
+  border-radius: 20rpx;
+  margin-top: 120rpx;
+}
+.probability {
+  width: 100%;
+  height: 15rpx;
+  position: absolute;
+  left: 0;
+  bottom: -10rpx;
+  border-radius: 10rpx;
+}
+.progress {
+  height: 100%;
+  position: relative;
+  opacity: 0.8;
+  border-radius: 5rpx;
+}
+.move-btn {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  position: absolute;
+  right: -10rpx;
+  top: -15rpx;
+  box-shadow: 3rpx 3rpx 6rpx rgba(26, 26, 26, 0.4);
+}
+.move-btn::before {
+  content: '';
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.number {
+  width: 80rpx;
+  height: 40rpx;
+  margin-top: -40rpx;
+  margin-left: 20rpx;
+}
+
+.striped{
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-size: 72rpx 72rpx;
+}
+
+.active {
+	animation: progress-stripes 2s linear infinite;
+}
+
+@keyframes progress-stripes {
+	from {
+		background-position: 72rpx 0;
+	}
+
+	to {
+		background-position: 0 0;
+	}
+}

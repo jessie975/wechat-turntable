@@ -1,1 +1,13 @@
-/* pages/history/history.wxss */
+.clean {
+  width: 750rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: right;
+  padding: 10rpx 25rpx;
+}
+.card {
+  width: 700rpx;
+  height: 150rpx;
+  border-radius: 10rpx;
+  margin: 20rpx auto 0;
+}

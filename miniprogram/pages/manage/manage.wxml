@@ -1,2 +1,27 @@
-<!--pages/manage/manage.wxml-->
-<text>pages/manage/manage.wxml</text>
+<view class="empty" style="width: 350rpx; height: 300rpx; margin: 250rpx auto;" wx:if="{{isEmpty}}">
+  <image src="../../images/empty.png" style="width: 100%; height: 100%"/>
+  <view class="add-decide" bindtap="toAdd">添加决定</view>
+</view>
+
+<view class="card-box flex justify-center" 
+      wx:for="{{list}}" 
+      wx:key="{{index}}" 
+      wx:if="{{!isEmpty}}" 
+      bindtouchstart="touchStart"
+      bindtouchmove="touchMove">
+  <card title="{{item.title}}" 
+        index="{{index}}"
+        sector="{{item.options}}"
+        bind:getEditIndex="toEdit"
+        bindtap="toHome"
+        data-index="{{index}}"
+        class="card">
+    <view class="move bg-red {{(deleteIndex === index) && showMove}}" catchtap="delete" data-index="{{index}}">
+      <text>删除</text>
+    </view>
+  </card>
+</view>
+
+<view class="add-btn shadow-lg bg-green" style="transform: scale({{addBtnScale}})" wx:if="{{!isEmpty && showAdd}}" bindtap="toAdd">
+  <text class="iconfont icon-jia" style="width: 80%; height: 80%;"></text>
+</view>

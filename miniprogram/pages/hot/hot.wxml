@@ -1,2 +1,19 @@
-<!--pages/hot/hot.wxml-->
-<text>pages/hot/hot.wxml</text>
+<view class="card-box flex justify-center" wx:for="{{list}}" wx:key="{{index}}" >
+  <card title="{{item.title}}" 
+        index="{{index}}"
+        sector="{{item.options}}"
+        bind:getEditIndex="toEdit"
+        bindtap="toHome"
+        data-index="{{index}}">
+  </card>
+</view>
+
+<view class="footer flex justify-center align-center margin-top margin-bottom" wx:if="{{showFoot}}">
+  <view class="footer-img margin-right">
+    <image src="../../images/footer.png" />
+  </view>
+  <text style="color: #666;" class="text-xs text-bold">没有更多了</text>
+  <view class="footer-img margin-left" style="transform:scaleX(-1);">
+    <image src="../../images/footer.png"/>
+  </view>
+</view>
