@@ -9,11 +9,13 @@ export const calAngle = (sector, startAngle) => {
   sector.forEach((item) => {
     count += item.order
   })
+  let averagePro = Math.round(count / sector.length)
 
   // 计算出开始的弧度和所占比例
   return sector.map((item) => {
     item.proportion = item.order / count
     item.startAngle = startAngle
+    item.midAveragePro = Math.round(item.order / averagePro)
     startAngle += 2 * Math.PI * item.proportion
     return item
   })

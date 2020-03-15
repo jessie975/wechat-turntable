@@ -67,6 +67,7 @@ Component({
       const clientWidth = this.getRatioRadius()
       const radius = width / 2 * clientWidth // 圆心x,y,半径相等
       const context = wx.createCanvasContext(canvasId, this)
+      // const context = canvas.getContext()
       await draw(context, sector, radius, radius, radius, 0) // 初始角度0
       this.setData({
         context,
@@ -114,19 +115,27 @@ Component({
       this.triggerEvent("getResult", checkedIndex )
     },
     /**
+     * 旋转过程中
+     */
+    rotateIng() {
+      const {sector} = this.data
+      const checkedIndex = Math.floor(Math.abs(Math.random() * sector.length - 1))
+      // 将结果传递给父组件
+      this.triggerEvent("getResult", checkedIndex )
+    },
+    /**
      * 自动旋转
      */
     rotateAuto() {
       const {
         canClick, sector, context, radius, hasVibrate, checkIndex
       } = this.data
-      this.triggerEvent("rotateStart")
       if (canClick) { // 转盘旋转结束，可再次旋转
         this.setData({canClick: false})
         const {distance, checkedIndex} = distanceToStop(sector, checkIndex)
         this.setData({checkedIndex})
         hasVibrate && this.playVibrate()
-        rotate(context, sector, radius, radius, radius, distance, 0, this.rotateEnd.bind(this))
+        rotate(context, sector, radius, radius, radius, distance, 0, this.rotateEnd.bind(this), this.rotateIng.bind(this))
       }
     },
     touchStart(e) {
@@ -152,6 +161,7 @@ Component({
       if (canClick) {
         const touch = e.changedTouches[0]
         const distance = getDistance(touch.x, touch.y, radius, startX, startY)
+        console.log('touchMove -> distance', distance)
         const result = distance + remeberDistance
         draw(context, sector, radius, radius, radius, result)
       }
