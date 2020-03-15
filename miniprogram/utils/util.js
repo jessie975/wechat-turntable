@@ -1,4 +1,4 @@
-export function formatDate(date) {
+export const formatDate = (date) => {
   function padStr(obj) {
     return obj.toString().padStart(2, '0')
   }

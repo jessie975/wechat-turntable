@@ -54,17 +54,16 @@ export const distanceToStop = (series, checkIndex = -1) => {
  * @param {Number} distance 选中项跑到指针位置要转动的距离
  * @param {Number} startAngle 开始的角度
  */
-export const rotate = (context, series, x, y, r, distance, startAngle = 0, rotateEnd, rotateIng) => {
+export const rotate = (context, series, x, y, r, distance, startAngle = 0, rotateEnd) => {
   const changeRadian = (distance - startAngle) / 30
   startAngle += changeRadian
   if (distance - startAngle <= 0.05) {
-    rotateEnd()
+    rotateEnd(startAngle)
     return
   }
   draw(context, series, x, y, r, startAngle)
-  // rotateIng()
   // 循环调用rotate方法，使转盘连续绘制， 形成旋转视觉
-  doAnimationFrame(rotate.bind(this, context, series, x, y, r, distance, startAngle, rotateEnd, rotateIng))
+  doAnimationFrame(rotate.bind(this, context, series, x, y, r, distance, startAngle, rotateEnd))
 }
 
 /**

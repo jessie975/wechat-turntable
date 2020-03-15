@@ -1,18 +1,18 @@
 <!-- 标题-结果 -->
 <view class="title-result flex flex-direction justify-center align-center margin-top-lg">
   <view class="title text-xl text-bold">{{title}}</view>
-  <view class="result text-df margin-top text-bold animation-scale-down">{{options[result].text || '...........'}}</view>
+  <view class="result text-df margin-top text-bold animation-scale-down {{updateResult ? 'get-result' : ''}}">{{options[result].text || '...........'}}</view>
 </view>
 <!-- 转盘 -->
 <view class="margin-top-xxl flex justify-center" wx:if="{{!showCheat}}">
   <turntable
+    id="myPizza"
     canvasId="myPizza"
     sector="{{options}}"
     hasMusic="{{music}}"
     hasVibrate="{{vibrate}}"
     checkIndex="{{checkIndex}}"
     bind:getResult="getResult"
-    bind:rotateStart="rotateStart"
   ></turntable>
 </view>
 <!-- 自定义项 -->

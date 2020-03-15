@@ -21,14 +21,15 @@ Page({
     title: '',
     options: [], // 扇区
     music: true,
-    vibrate: false,
+    vibrate: true,
     showSetting: false,
     showCheat: false,
     result: null,
     checkIndex: -1,
     setInterId: '',
     _id: null,
-    hasChoose: false
+    hasChoose: false,
+    updateResult: false
   },
 
   showSetting() {
@@ -67,18 +68,7 @@ Page({
     this.setData({
       [type]: !value
     })
-  },
-
-  rotateStart() {
-    const {options} = this.data
-    this.data.setInterId = setInterval(() => {
-      this.setData({
-        result: Math.floor(Math.abs(Math.random() * options.length - 1))
-      })
-    }, 100)
-    setTimeout(() => {
-      clearInterval(this.data.setInterId)
-    }, 5000)
+    wx.setStorageSync(type, !value)
   },
 
   getResult(e) {
@@ -97,7 +87,7 @@ Page({
 
     this.setData({
       result: e.detail,
-      checkIndex: -1,
+      updateResult: true
     })
     const currentPage = getCurrentPages()[0].route
     if (currentPage === 'pages/home/home') {
@@ -114,7 +104,6 @@ Page({
   },
 
   async getDataFormUserDb() {
-    $.loading()
     const {result} = await model.getUserDecide()
     if (result.length !== 0) {
       const {options, title, _id} = result[0]
@@ -123,7 +112,6 @@ Page({
         title,
         _id
       })
-      $.hideLoading()
     } else {
       this.setData({
         options: defalutSector,
@@ -132,8 +120,7 @@ Page({
     }
   },
 
-  async getDecide() { 
-    $.loading()
+  async getDecide() {
     const decide = app.globalData.decide
     if (decide) {
       const options = this.dealData(decide.options)
@@ -142,7 +129,6 @@ Page({
         options,
         _id: decide._id
       })
-      $.hideLoading()
     } else {
       this.getDataFormUserDb()
     }
@@ -153,11 +139,31 @@ Page({
     const {options, title} = data[0]
     this.setData({
       title,
-      options: this.dealData(options)
+      options: this.dealData(options),
+      checkIndex: option.checkIndex - 0
     })
+    this.selectComponent('#myPizza').rotateAuto()
+  },
+
+  getSettingFormStorage() {
+    try {
+      const MusicValue = wx.getStorageSync('music')
+      const vibrateValue = wx.getStorageSync('vibrate')
+      this.setData({
+        music: MusicValue,
+        vibrate: vibrateValue
+      })
+    } catch (e) {
+      this.setData({
+        music: true,
+        vibrate: true
+      })
+    }
   },
 
   onLoad(options) {
+    $.loading()
+    this.getSettingFormStorage()
     if (Object.keys(options).length !== 0) {
     // 从分享入口进首页
       this.fromShare(options)
@@ -168,6 +174,7 @@ Page({
       // 先从全局变量里取，如果没有则从用户最近创建的决定里面取，如果还是没有就给默认的
       this.getDecide()
     }
+    $.hideLoading()
   },
 
   onReady: function () {

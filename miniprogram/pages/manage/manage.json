@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "转盘管理",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "card": "../../components/card/card"
   }

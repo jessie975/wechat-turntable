@@ -107,19 +107,14 @@ Component({
     /**
      * 旋转结束
      */
-    rotateEnd() {
+    rotateEnd(startAngle) {
       const {hasMusic, checkedIndex} = this.data
-      this.setData({canClick: true})
+      this.setData({
+        canClick: true,
+        remeberDistance: startAngle,
+        checkIndex: -1
+      })
       hasMusic && this.playMusic()
-      // 将结果传递给父组件
-      this.triggerEvent("getResult", checkedIndex )
-    },
-    /**
-     * 旋转过程中
-     */
-    rotateIng() {
-      const {sector} = this.data
-      const checkedIndex = Math.floor(Math.abs(Math.random() * sector.length - 1))
       // 将结果传递给父组件
       this.triggerEvent("getResult", checkedIndex )
     },
@@ -135,7 +130,7 @@ Component({
         const {distance, checkedIndex} = distanceToStop(sector, checkIndex)
         this.setData({checkedIndex})
         hasVibrate && this.playVibrate()
-        rotate(context, sector, radius, radius, radius, distance, 0, this.rotateEnd.bind(this), this.rotateIng.bind(this))
+        rotate(context, sector, radius, radius, radius, distance, 0, this.rotateEnd.bind(this))
       }
     },
     touchStart(e) {

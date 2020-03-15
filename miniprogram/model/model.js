@@ -31,10 +31,8 @@ export default class extends Base {
   }
 
   cleanHistory() {
-    return this.UserDb.where({_openid: '{openid}'}).update({
-      data: {
-        history: []
-      }
+    return $.callCloud({
+      name: 'cleanHistory'
     })
   }
 
@@ -74,10 +72,24 @@ export default class extends Base {
     })
   }
 
-  getHotDecides() {
-    return this.DecideDb.where({
-      times: this._.gte(1000)
-    }).limit(10).orderBy('times', 'desc').get()
+  async getHotDecides(page = 1) {
+    const size = 5
+
+    const {data:list} = await this.DecideDb.where({
+      times: this._.gte(10000)
+    }).skip((page - 1) * size).limit(size).orderBy('times', 'desc').get()
+
+    let pageSum = -1
+    if (page === 1) {
+      const {total} = await this.DecideDb.where({
+        times: this._.gte(10000)
+      }).count()
+      pageSum = Math.ceil(total / size)
+    }
+    return {
+      list,
+      pageSum
+    }
   }
 
   toHomeFromShare(_id) {

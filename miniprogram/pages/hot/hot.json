@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "热门决定",
+  "enablePullDownRefresh": true,  
+  "backgroundColor": "#A5D6A7",
   "usingComponents": {
     "card": "../../components/card/card"
   }

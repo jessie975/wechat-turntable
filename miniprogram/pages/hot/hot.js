@@ -1,5 +1,6 @@
 import Model from '../../model/model'
 import router from '../../utils/router'
+import $ from '../../utils/tool'
 
 const app =  getApp()
 const model = new Model()
@@ -8,7 +9,8 @@ Page({
 
   data: {
     list: [],
-    showFoot: false
+    noMore: false,
+    pageSum: -1
   },
 
   toAdd() {
@@ -35,38 +37,38 @@ Page({
   },
 
   async getList() {
-    const {data: list} = await model.getHotDecides()
+    const {list, pageSum} = await model.getHotDecides()
     this.setData({
       list,
-      showFoot: true
+      pageSum
     })
   },
 
   onLoad() {
+    $.loading()
     this.getList()
+    $.hideLoading()
   },
 
-  onReady() {
-  },
-
-  onShow: function () {
-
-  },
-
-  onHide: function () {
-
-  },
-
-  onUnload: function () {
-
-  },
-
-  onPullDownRefresh: function () {
-
-  },
-
-  onReachBottom: function () {
-
+  async onPullDownRefresh() {
+    $.loading()
+    const {pageSum, list} = this.data
+    wx.showNavigationBarLoading()
+    if (pageSum > 1) {
+      const {list: newList} = await model.getHotDecides(pageSum)
+      this.setData({
+        list: [...list, ...newList],
+        pageSum: pageSum - 1
+      })
+    } else {
+      $.tip('没有更多数据了')
+      this.setData({
+        noMore: true
+      })
+    } 
+    $.hideLoading()
+    wx.hideNavigationBarLoading()
+    wx.stopPullDownRefresh()
   },
 
   onShareAppMessage: function () {

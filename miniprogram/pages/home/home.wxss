@@ -135,3 +135,21 @@
 .choosed {
   opacity: 0.5;
 }
+
+.get-result {
+  animation: result-style 1s;
+}
+
+@keyframes result-style {
+	0% {
+		transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(1.5);
+  }
+
+	100% {
+		transform: scale(1);
+	}
+}
