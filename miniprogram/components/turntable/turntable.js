@@ -1,8 +1,6 @@
 import {draw} from './utils/draw'
 import {distanceToStop, rotate, getDistance} from './utils/rotate'
 
-const stopMusic = wx.createInnerAudioContext()
-
 Component({
   /**
    * 组件的属性列表
@@ -51,7 +49,6 @@ Component({
 
   // 组件生命周期函数，在组件实例进入页面节点树时执行
   attached() {
-    stopMusic.src = 'https://7475-turntable-dev-1301517626.tcb.qcloud.la/end.wav?sign=182f9e5343405808084ac7115b81b210&t=1583829657'
     this.init()
   },
 
@@ -90,7 +87,9 @@ Component({
      * 旋转结束音效 
      */
     playMusic() {
+      const stopMusic = wx.createInnerAudioContext()
       stopMusic.autoplay = true
+      stopMusic.src = 'audio/end.wav'
       stopMusic.onPlay(() => {})
     },
     /**
@@ -111,8 +110,7 @@ Component({
       const {hasMusic, checkedIndex} = this.data
       this.setData({
         canClick: true,
-        remeberDistance: startAngle,
-        checkIndex: -1
+        remeberDistance: startAngle
       })
       hasMusic && this.playMusic()
       // 将结果传递给父组件
@@ -126,6 +124,7 @@ Component({
         canClick, sector, context, radius, hasVibrate, checkIndex
       } = this.data
       if (canClick) { // 转盘旋转结束，可再次旋转
+        this.triggerEvent("rotateStart", true)
         this.setData({canClick: false})
         const {distance, checkedIndex} = distanceToStop(sector, checkIndex)
         this.setData({checkedIndex})

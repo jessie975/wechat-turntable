@@ -47,6 +47,7 @@ App({
     CustomBar: null,
     screenHeight: null,
     env: '',
-    decide: null
+    decide: null,
+    rotateStart: false
   }
 })

@@ -3,8 +3,6 @@ import $ from '../../../utils/tool'
 import Model from '../../../model/model'
 import router from '../../../utils/router'
 
-const app = getApp()
-
 Page({
 
   data: {
@@ -12,13 +10,15 @@ Page({
     isCustom: false,
     title: '',
     options: [
-      {order: 50.0,  text: '',  width: 375 / 2},
-      {order: 50.0, text: '', width: 375 / 2},
+      {order: 50.0,  text: '',  width: 320 / 2},
+      {order: 50.0, text: '', width: 320 / 2},
     ],
     touchStart: null,
     isUpdate: false,
     _id: null,
-    isHot: false
+    isHot: false,
+    beforeStep: null,
+    beforeMoveOrder: 0
   },
 
   changeModal(e) {
@@ -29,31 +29,21 @@ Page({
     })
   },
 
-  averageItem() {
-    const {options} = this.data
-    const itemOrder = $.saveTwoNum(100 / options.length)
-    options.forEach(item => {
-      item.width = 375 / options.length
-      item.order = itemOrder
-    })
-    this.setData({
-      options
-    })
-  },
-
   add() {
     const {options} = this.data
     if (options.length < 12) {
       const newItem = {
-        order: $.saveTwoNum(100 / options.length + 1),
+        order: 50,
         text: '',
-        width: 375 / (options.length + 1)
+        width: 320 / 2
       }
       options.push(newItem)
-      this.averageItem()
     } else {
       $.tip('最多只能添加12项哦')
     }
+    this.setData({
+      options
+    })
   },
 
   delete(e) {
@@ -64,7 +54,6 @@ Page({
       return
     }
     options.splice(index, 1)
-    this.averageItem()
     this.setData({
       options
     })
@@ -88,44 +77,38 @@ Page({
   },
 
   touchstart(e) {
+    const {options} = this.data
+    const index = e.target.dataset.index
     this.setData({
       touchStart: e.touches[0].pageX,
+      beforeMoveOrder: options[index].order
     })
   },
 
   touchmove(e) {
-    const {touchStart, options} = this.data
+    const {touchStart, options, beforeStep, beforeMoveOrder} = this.data
     const targetIndex = e.target.dataset.index
     const pageX = e.touches[0].pageX
     const moveDistance = pageX - touchStart
     const target = options[targetIndex]
-    const targetOriginOrder = target.order
+    let step = 0
 
     // 移动距离太短不做计算
     if (moveDistance < 10 && moveDistance > -10) return
     
-    if (pageX > 375) {
+    if (target.order >= 100 && moveDistance > 0) { // 移到最右
       target.order = 100
-      target.width = 375
-    } else if (pageX < 15) {
-      target.order = 1
+      target.width = 320
+    } else if (target.order <= 5 && moveDistance < 0) { // 移到最左
+      target.order = 5
       target.width = 15
     } else {
+      step = Math.round(moveDistance / 3.2)
+      if (step % 5 === 0 && beforeStep !== step) {
+        this.setData({beforeStep: step})
+        target.order = beforeMoveOrder + step
+      }
       target.width = touchStart + moveDistance
-      target.order = Math.round(options[targetIndex].width / 3.75)
-    }
-
-    const modifyOrder = targetOriginOrder - target.order
-    const averageModify = $.saveTwoNum(modifyOrder / (options.length - 1))
-
-    if (modifyOrder !== 0) {
-      options.forEach((item, index) => {
-        if (index !== targetIndex) {
-          // 目标向右移，其他项应该减少相应比例
-          item.order = $.saveTwoNum(item.order + averageModify)
-          item.width = 375 / (100 / item.order)  
-        }
-      })
     }
 
     this.setData({
@@ -135,11 +118,13 @@ Page({
 
   touchend(e) {
     const {options} = this.data
-    if(!options.every(item => item.order > 0)) {
-      $.tip('存在选项为负数，生成转盘后该选项将不再显示', 3000)
+    const index = e.target.dataset.index
+    if(!options.every(item => item.order >= 0)) {
+      $.tip('存在选项概率为0，转盘将不再显示此项', 3000)
     }
     this.setData({
       touchStart: e.changedTouches[0].pageX,
+      beforeMoveOrder: options[index].order
     })
   },
 
@@ -175,11 +160,6 @@ Page({
       } else {
         await model.addDecide(title, options, isCustom)
         tipMassage = '创建转盘成功，即将跳转...'
-      }
-      app.globalData.decide = {
-        title,
-        options,
-        _id
       }
       $.tip(tipMassage, 1000)
       router.reLaunch('home')

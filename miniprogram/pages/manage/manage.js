@@ -9,7 +9,7 @@ Page({
 
   data: {
     list: [],
-    isEmpty: null,
+    isEmpty: true,
     addBtnScale: 1,
     showAdd: true,
     touchStart: null,
@@ -44,12 +44,16 @@ Page({
   toHome(e) {
     const {list} = this.data
     const {title, options, _id} = list[e.target.dataset.index]
-    app.globalData.decide = {
-      title,
-      options,
-      _id
+    if (!app.globalData.rotateStart) {
+      app.globalData.decide = {
+        title,
+        options,
+        _id
+      }
+      router.reLaunch('home')
+    } else {
+      $.tip('还有决定未结束，请稍后再切换哦~')
     }
-    router.reLaunch('home')
   },
   async delete(e) {
     const {list} = this.data

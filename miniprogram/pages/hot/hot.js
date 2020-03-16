@@ -28,12 +28,17 @@ Page({
   toHome(e) {
     const {list} = this.data
     const {title, options, _id} = list[e.target.dataset.index]
-    app.globalData.decide = {
-      title,
-      options,
-      _id
+    if (!app.globalData.rotateStart) {
+      app.globalData.decide = {
+        title,
+        options,
+        _id
+      }
+      router.reLaunch('home')
+    } else {
+      $.tip('还有决定未结束，请稍后再切换哦~')
     }
-    router.reLaunch('home')
+    
   },
 
   async getList() {
@@ -51,15 +56,16 @@ Page({
   },
 
   async onPullDownRefresh() {
-    $.loading()
     const {pageSum, list} = this.data
     wx.showNavigationBarLoading()
     if (pageSum > 1) {
+      $.loading()
       const {list: newList} = await model.getHotDecides(pageSum)
       this.setData({
         list: [...list, ...newList],
         pageSum: pageSum - 1
       })
+      $.hideLoading()
     } else {
       $.tip('没有更多数据了')
       this.setData({

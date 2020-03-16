@@ -13,6 +13,7 @@
     hasVibrate="{{vibrate}}"
     checkIndex="{{checkIndex}}"
     bind:getResult="getResult"
+    bind:rotateStart="rotateStart"
   ></turntable>
 </view>
 <!-- 自定义项 -->
@@ -37,9 +38,9 @@
       <view class="text-bold text-lg">指定结果</view>
     </view>
     <view class="options flex flex-wrap justify-center">
-      <view class="item {{checkIndex === index ? 'choosed bg-green text-white':''}}" wx:for="{{options}}" wx:key="{{index}}" data-index="{{index}}" catchtap="chooseCheat">{{item.text}}</view>
+      <view class="item {{checkIndex === index ? 'choosed bg-green text-white':''}}" wx:for="{{cheatOptions}}" wx:key="{{index}}" data-index="{{index}}" catchtap="chooseCheat">{{item}}</view>
     </view>
-    <view class="submit" wx:if="{{hasChoose}}" catchtap="hiddenCheat">确定</view>
+    <view class="submit" wx:if="{{checkIndex !== -1}}" catchtap="cheatSubmit">确定</view>
   </view>
 </view>
 

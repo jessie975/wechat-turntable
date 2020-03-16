@@ -10,12 +10,12 @@
   </view>
   <view class="group shaow bg-white flex align-center margin-top{{isCustom? '-lg':''}}" wx:for="{{options}}" wx:key>
     <text class="iconfont icon-jian_ text-orange" bindtap="delete" data-index="{{index}}"></text>
-    <input class="margin-left" style="width: 100%;" placeholder="选项" data-index="{{index}}" value="{{item.text}}" bindinput="inputValue"/>
+    <input class="margin-left" style="width: 100%" placeholder="选项" data-index="{{index}}" value="{{item.text}}" bindinput="inputValue"/>
     <view class="probability bg-white flex" wx:if="{{isCustom}}">
       <view class="progress bg-green active striped" style="width: {{item.width}}px">
         <view class="move-btn bg-white" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend" data-index="{{index}}"></view>
       </view>
-      <text class="number text-bold">{{item.order}}%</text>
+      <text class="number text-bold">{{item.order}}</text>
     </view>
   </view>
   <view class="group shaow bg-white flex align-center margin-top{{isCustom? '-lg':''}}" bindtap="add">

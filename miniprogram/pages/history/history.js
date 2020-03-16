@@ -9,19 +9,21 @@ Page({
     isEmpty: false
   },
 
-  cleanHistory() {
+  async cleanHistory() {
     const that = this
     wx.showModal({
       title: '提示',
       content: '确认清除所有历史记录吗？',
-      success (res) {
-        if (res.confirm) {
-          model.cleanHistory()
-          that.getData()
-          that.setData({isEmpty: true})
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
+    }).then((res) => {
+      if (res.confirm) {
+        const result = model.cleanHistory()
+        return result
+      } else if (res.cancel) {
+        return false
+      }
+    }).then((res) => {
+      if (res.result) {
+        that.getData()
       }
     })
   },

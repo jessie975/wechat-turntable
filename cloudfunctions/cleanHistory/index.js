@@ -16,8 +16,8 @@ exports.main = async () => {
     await users.where({_openid}).update({
       data: {history: []}
     })
-    return '成功清空'
+    return true
   } catch (error) {
-    return '清空失败'
+    return false
   }
 }

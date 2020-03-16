@@ -25,7 +25,7 @@ export default class extends Base {
     history.date = this.date
     return this.UserDb.where({_openid: '{openid}'}).update({
       data: {
-        history: this._.push(history)
+        history: this._.unshift(history)
       }
     })
   }

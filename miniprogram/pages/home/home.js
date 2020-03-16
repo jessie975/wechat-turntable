@@ -3,15 +3,6 @@ import Model from '../../model/model'
 import $ from '../../utils/tool'
 
 const colorful = ['#5B8FF9', '#6DC8EC', '#E8684A', '#F6BD16', '#5D7092', '#5AD8A6','#9270CA', '#FEB7D5', '#C8DAFC', '#F6BD16', '#5D7092', '#5AD8A6']
-const defalutTitle = '上帝掷骰子'
-const defalutSector = [
-  {order: 1, color: '#83d0ef', text: '1'},
-  {order: 1, color: '#73a0fa', text: '2'},
-  {order: 1, color: '#73deb3', text: '3'},
-  {order: 1, color: '#7585a2', text: '4'},
-  {order: 1, color: '#f7c739', text: '5'},
-  {order: 1, color: '#eb7e65', text: '6'}
-]
 
 const app = getApp()
 const model = new Model()
@@ -20,15 +11,16 @@ Page({
   data: {
     title: '',
     options: [], // 扇区
+    cheatOptions: [],
     music: true,
     vibrate: true,
     showSetting: false,
     showCheat: false,
     result: null,
     checkIndex: -1,
+    cancelCheat: false,
     setInterId: '',
     _id: null,
-    hasChoose: false,
     updateResult: false
   },
 
@@ -39,24 +31,53 @@ Page({
   },
 
   showCheat() {
-    this.setData({
-      showCheat: true
-    })
-    wx.hideTabBar()
+    const {options, cheatOptions, checkIndex} = this.data
+    if (cheatOptions.length === 0) {
+      options.forEach(item => {
+        cheatOptions.push(item.text)
+      })
+    } else {
+      if (checkIndex !== -1) {
+        cheatOptions[options.length] = '取消作弊模式'
+      }
+    }
+    
+    if (!app.globalData.rotateStart) {
+      this.setData({
+        showCheat: true,
+        cheatOptions
+      })
+      wx.hideTabBar()
+    } else {
+      $.tip('当前还有决定未结束，请稍后~')
+    }
   },
 
   chooseCheat(e) {
+    const {options, cheatOptions} = this.data
     const index = e.target.dataset.index
+    if (cheatOptions.length > options.length) {
+      if (index === cheatOptions.length - 1) {
+        this.setData({cancelCheat: true})
+      }
+    }
     this.setData({
-      checkIndex: index,
-      hasChoose: true
+      checkIndex: index
     })
+  },
+
+  cheatSubmit() {
+    if (this.data.cancelCheat) {
+      this.setData({checkIndex: -1})
+    }
+    this.setData({showCheat: false})
+    wx.showTabBar()
   },
 
   hiddenCheat() {
     this.setData({
       showCheat: false,
-      hasChoose: false,
+      checkIndex: -1
     })
     wx.showTabBar()
   },
@@ -69,6 +90,10 @@ Page({
       [type]: !value
     })
     wx.setStorageSync(type, !value)
+  },
+
+  rotateStart(e) {
+    app.globalData.rotateStart = e.detail
   },
 
   getResult(e) {
@@ -84,7 +109,7 @@ Page({
     }
     model.updateTimes(_id)
     model.addHistory(history)
-
+    app.globalData.rotateStart = false
     this.setData({
       result: e.detail,
       updateResult: true
@@ -105,19 +130,24 @@ Page({
 
   async getDataFormUserDb() {
     const {result} = await model.getUserDecide()
+    let options = []
+    let title = ''
+    let _id = ''
     if (result.length !== 0) {
-      const {options, title, _id} = result[0]
-      this.setData({
-        options: await this.dealData(options),
-        title,
-        _id
-      })
+      options = result[0].options
+      title = result[0].title
+      _id = result[0]._id
     } else {
-      this.setData({
-        options: defalutSector,
-        title: defalutTitle
-      })
+      const {list} = await model.getHotDecides()
+      options = list[0].options
+      title = list[0].title
+      _id = list[0]._id
     }
+    this.setData({
+      options: await this.dealData(options),
+      title,
+      _id
+    })
   },
 
   async getDecide() {
