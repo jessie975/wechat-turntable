@@ -21,7 +21,8 @@ Page({
     cancelCheat: false,
     setInterId: '',
     _id: null,
-    updateResult: false
+    updateResult: false,
+    showTurntable: false
   },
 
   showSetting() {
@@ -148,6 +149,8 @@ Page({
       title,
       _id
     })
+    this.setData({showTurntable: true})
+    $.hideLoading()
   },
 
   async getDecide() {
@@ -159,6 +162,8 @@ Page({
         options,
         _id: decide._id
       })
+      this.setData({showTurntable: true})
+      $.hideLoading()
     } else {
       this.getDataFormUserDb()
     }
@@ -172,6 +177,8 @@ Page({
       options: this.dealData(options),
       checkIndex: option.checkIndex - 0
     })
+    this.setData({showTurntable: true})
+    $.hideLoading()
     this.selectComponent('#myPizza').rotateAuto()
   },
 
@@ -204,7 +211,6 @@ Page({
       // 先从全局变量里取，如果没有则从用户最近创建的决定里面取，如果还是没有就给默认的
       this.getDecide()
     }
-    $.hideLoading()
   },
 
   onReady: function () {

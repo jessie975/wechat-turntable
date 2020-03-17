@@ -261,7 +261,7 @@ image.loading::after {
 
 .cu-progress {
 	overflow: hidden;
-	height: 28rpx;
+	height: 20rpx;
 	background-color: #ebeef5;
 	display: inline-flex;
 	align-items: center;
@@ -273,36 +273,12 @@ image.loading::after {
 	line-height: 1;
 }
 
-.cu-progress.xs {
-	height: 10rpx;
-}
-
-.cu-progress.sm {
-	height: 20rpx;
-}
-
-.cu-progress view {
-	width: 0;
-	height: 100%;
-	align-items: center;
-	display: flex;
-	justify-items: flex-end;
-	justify-content: space-around;
-	font-size: 20rpx;
-	color: #ffffff;
-	transition: width 0.6s ease;
-}
-
 .cu-progress text {
 	align-items: center;
 	display: flex;
 	font-size: 20rpx;
 	color: #333333;
 	text-indent: 10rpx;
-}
-
-.cu-progress.text-progress {
-	padding-right: 60rpx;
 }
 
 .cu-progress.striped view {

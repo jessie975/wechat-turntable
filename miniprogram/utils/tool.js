@@ -23,7 +23,7 @@ export default {
     )
   },
 
-  loading(title = '数据拉取中...', mask = true) {
+  loading(title = '加载中...', mask = true) {
     return new Promise(resolve => { wx.showLoading({title, mask, complete: resolve}) })
   },
 

@@ -10,15 +10,22 @@ Page({
     isCustom: false,
     title: '',
     options: [
-      {order: 50.0,  text: '',  width: 320 / 2},
-      {order: 50.0, text: '', width: 320 / 2},
+      {order: 50,  text: '',  width: 300},
+      {order: 50, text: '', width: 300},
     ],
     touchStart: null,
     isUpdate: false,
     _id: null,
     isHot: false,
-    beforeStep: null,
-    beforeMoveOrder: 0
+    beforeOrder: 0,
+    beforeWidth: 0,
+    showProblem: false
+  },
+
+  showProblem() {
+    this.setData({
+      showProblem: !this.data.showProblem
+    })
   },
 
   changeModal(e) {
@@ -35,7 +42,7 @@ Page({
       const newItem = {
         order: 50,
         text: '',
-        width: 320 / 2
+        width: 300
       }
       options.push(newItem)
     } else {
@@ -78,38 +85,33 @@ Page({
 
   touchstart(e) {
     const {options} = this.data
-    const index = e.target.dataset.index
+    const index = e.currentTarget.dataset.index
     this.setData({
       touchStart: e.touches[0].pageX,
-      beforeMoveOrder: options[index].order
+      beforeWidth: options[index].width,
+      beforeOrder: options[index].order 
     })
   },
 
   touchmove(e) {
-    const {touchStart, options, beforeStep, beforeMoveOrder} = this.data
-    const targetIndex = e.target.dataset.index
+    const {touchStart, options, beforeWidth, beforeOrder} = this.data
+    const targetIndex = e.currentTarget.dataset.index
     const pageX = e.touches[0].pageX
-    const moveDistance = pageX - touchStart
+    const moveDistance = Math.floor(pageX - touchStart) * 2
     const target = options[targetIndex]
     let step = 0
 
-    // 移动距离太短不做计算
-    if (moveDistance < 10 && moveDistance > -10) return
-    
-    if (target.order >= 100 && moveDistance > 0) { // 移到最右
+    if (target.width < 0) {
+      target.width = 0
+      target.order = 0
+    } else if (target.width > 600) {
+      target.width = 600
       target.order = 100
-      target.width = 320
-    } else if (target.order <= 5 && moveDistance < 0) { // 移到最左
-      target.order = 5
-      target.width = 15
-    } else {
-      step = Math.round(moveDistance / 3.2)
-      if (step % 5 === 0 && beforeStep !== step) {
-        this.setData({beforeStep: step})
-        target.order = beforeMoveOrder + step
-      }
-      target.width = touchStart + moveDistance
-    }
+    } else if (target.order < 100 && target.order > 0) {
+      target.width = beforeWidth + moveDistance
+      step = Math.floor(moveDistance / 6)
+      target.order = beforeOrder + step
+    } 
 
     this.setData({
       options
@@ -118,13 +120,17 @@ Page({
 
   touchend(e) {
     const {options} = this.data
-    const index = e.target.dataset.index
-    if(!options.every(item => item.order >= 0)) {
-      $.tip('存在选项概率为0，转盘将不再显示此项', 3000)
+    const index = e.currentTarget.dataset.index
+    const target = options[index]
+    if (target.order >= 100) {
+      target.order = 99
+    }
+    if (target.order <= 0) {
+      target.order = 1
     }
     this.setData({
       touchStart: e.changedTouches[0].pageX,
-      beforeMoveOrder: options[index].order
+      options
     })
   },
 

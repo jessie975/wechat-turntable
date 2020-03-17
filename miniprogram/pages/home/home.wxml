@@ -4,7 +4,7 @@
   <view class="result text-df margin-top text-bold animation-scale-down {{updateResult ? 'get-result' : ''}}">{{options[result].text || '...........'}}</view>
 </view>
 <!-- 转盘 -->
-<view class="margin-top-xxl flex justify-center" wx:if="{{!showCheat}}">
+<view class="margin-top-xxl flex justify-center" wx:if="{{showTurntable}}">
   <turntable
     id="myPizza"
     canvasId="myPizza"

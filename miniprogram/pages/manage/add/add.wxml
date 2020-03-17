@@ -3,7 +3,7 @@
   <view class="modal-btn {{isCustom? 'bg-olive':'bg-white'}} margin-left" bindtap="changeModal" data-type="custom">自定义概率</view>
 </view>
 
-<view class="form">
+<view class="form flex justify-center flex-direction align-center">
   <view class="group shaow bg-white flex align-center">
     <text class="iconfont icon-liebiao text-drakGray"></text>
     <input class="margin-left" placeholder="有什么困扰着你呢？" bindinput="inputTitle" value="{{title}}"/>
@@ -11,11 +11,12 @@
   <view class="group shaow bg-white flex align-center margin-top{{isCustom? '-lg':''}}" wx:for="{{options}}" wx:key>
     <text class="iconfont icon-jian_ text-orange" bindtap="delete" data-index="{{index}}"></text>
     <input class="margin-left" style="width: 100%" placeholder="选项" data-index="{{index}}" value="{{item.text}}" bindinput="inputValue"/>
-    <view class="probability bg-white flex" wx:if="{{isCustom}}">
-      <view class="progress bg-green active striped" style="width: {{item.width}}px">
-        <view class="move-btn bg-white" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend" data-index="{{index}}"></view>
+    <view class="probability bg-white flex" wx:if="{{isCustom}}" data-index="{{index}}">
+      <view class="progress bg-green active striped" style="width: {{item.width}}rpx"></view>
+      <view data-index="{{index}}" class="action flex" style="left: {{item.width - 2}}rpx;" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend">
+        <view class="move-btn bg-white"></view>
+        <text class="number text-bold margin-left-sm">{{item.order}}</text>
       </view>
-      <text class="number text-bold">{{item.order}}</text>
     </view>
   </view>
   <view class="group shaow bg-white flex align-center margin-top{{isCustom? '-lg':''}}" bindtap="add">
@@ -25,3 +26,14 @@
 </view>
 
 <view class="submit bg-white" bindtap="submit">{{isUpdate? '更新转盘':'生成转盘'}}</view>
+
+<view class="declare padding" wx:if="{{isCustom}}" >
+  <text class="iconfont icon-problem text-yellow" bindtap="showProblem"></text>
+  <view class="title margin-bottom-sm margin-left-xl {{showProblem?'show-problem':'hidden-problem'}}" wx:if="{{showProblem}}">
+    <text class="text-gray">概率计算说明</text>
+  </view>
+  <view class="content flex flex-direction margin-bottom-xl {{showProblem?'show-problem':'hidden-problem'}}" wx:if="{{showProblem}}">
+    <text class="text-gray">每一项的概率 = 本身所占比例 / 总比例</text>
+    <text class="text-gray">例如：目前有两个选项，每个选项所占比例为50，那么每一项的概率就是 50 / (50 + 50)，也就是 1 / 2</text>
+  </view>
+</view>
