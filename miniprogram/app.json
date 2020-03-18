@@ -1,14 +1,14 @@
 {
   "pages": [
+    "pages/history/history",
+    "pages/manage/manage",
     "pages/hot/hot",
     "pages/home/home",
-    "pages/manage/add/add",
-    "pages/history/history",
-    "pages/manage/manage"
+    "pages/manage/add/add"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle": "light",
+    "backgroundColor": "#FFF",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#FFF",
     "navigationBarTitleText": "下决定",
     "navigationBarTextStyle": "black"

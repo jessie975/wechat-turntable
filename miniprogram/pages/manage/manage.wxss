@@ -45,3 +45,7 @@
   transition: all .6s ease-in-out 0s;
   transform: translateX(-130rpx);
 }
+
+.last-card {
+  margin-bottom: 50rpx;
+}

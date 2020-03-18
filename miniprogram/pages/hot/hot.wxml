@@ -4,11 +4,12 @@
         sector="{{item.options}}"
         bind:getEditIndex="toEdit"
         bindtap="toHome"
-        data-index="{{index}}">
+        data-index="{{index}}"
+        class="{{index === list.length - 1 ? 'last-card': ''}}">
   </card>
 </view>
 
-<view class="footer flex justify-center align-center margin-top margin-bottom" wx:if="{{noMore}}">
+<view class="footer flex justify-center align-center margin-bottom" wx:if="{{noMore}}">
   <view class="footer-img margin-right">
     <image src="../../images/footer.png" />
   </view>
@@ -18,4 +19,4 @@
   </view>
 </view>
 
-<loading show="{{showLoading}}"></loading>
+<loading show="{{showLoading}}" tip="{{tip}}"></loading>

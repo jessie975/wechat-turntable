@@ -8,7 +8,7 @@ Page({
     list: [],
     isEmpty: false,
     showLoading: true,
-    tip: '加载中'
+    tip: '加载中...'
   },
 
   async cleanHistory() {
@@ -51,26 +51,12 @@ Page({
     this.getData()
   },
 
-  onReady() {
-
-  },
-
-  onShow() {
+  async onPullDownRefresh() {
+    wx.showNavigationBarLoading()
+    this.setData({showLoading: true, tip: '刷新中...'})
     this.getData()
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+    wx.hideNavigationBarLoading()
+    wx.stopPullDownRefresh()
   },
 
   /**

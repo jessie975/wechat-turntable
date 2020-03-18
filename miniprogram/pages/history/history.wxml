@@ -7,7 +7,7 @@
   <text class="margin-right-sm">清空记录</text>
   <text class="iconfont icon-qingkong text-xxl"></text>
 </view>
-<view class="card bg-white shadow padding-sm" wx:for="{{list}}" wx:key="{{index}}">
+<view class="card bg-white shadow padding-sm {{index === list.length - 1 ? 'last-card': ''}}" wx:for="{{list}}" wx:key="{{index}}">
   <view class="title margin-bottom-sm flex justify-between">
     <view class="text-bold text-lg flex-sub">{{item.title}}</view>
     <button open-type="share" style="width: 55rpx; height: 55rpx; padding: 0;" wx:if="{{!item.isCheat}}" data-index="{{index}}">

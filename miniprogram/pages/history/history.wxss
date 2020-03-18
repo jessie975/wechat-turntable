@@ -11,3 +11,6 @@
   border-radius: 10rpx;
   margin: 20rpx auto 0;
 }
+.last-card {
+  margin-bottom: 50rpx;
+}

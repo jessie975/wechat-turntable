@@ -11,7 +11,8 @@ Page({
     list: [],
     noMore: false,
     pageSum: -1,
-    showLoading: true
+    showLoading: true,
+    tip: '加载中...'
   },
 
   toAdd() {
@@ -56,8 +57,15 @@ Page({
   },
 
   async onPullDownRefresh() {
-    const {pageSum, list} = this.data
     wx.showNavigationBarLoading()
+    this.setData({showLoading: true, tip: '刷新中...'})
+    this.getList()
+    wx.hideNavigationBarLoading()
+    wx.stopPullDownRefresh()
+  },
+
+  async onReachBottom() {
+    const {pageSum, list} = this.data
     if (pageSum > 1) {
       this.setData({showLoading: true})
       const {list: newList} = await model.getHotDecides(pageSum)
@@ -72,8 +80,6 @@ Page({
       })
     } 
     this.setData({showLoading: false})
-    wx.hideNavigationBarLoading()
-    wx.stopPullDownRefresh()
   },
 
   onShareAppMessage: function () {

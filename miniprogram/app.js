@@ -12,8 +12,9 @@ App({
           this.globalData.Custom = capsule
           this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight
         } else {
-          this.globalData.CustomBar = e.statusBarHeight + 50
+          this.globalData.CustomBar = e.statusBarHeight + 44
         }
+        this.globalData.tabbarHeight = e.screenHeight - e.statusBarHeight - this.globalData.CustomBar - e.windowHeight
       }
     })
   },

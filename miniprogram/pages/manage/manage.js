@@ -15,7 +15,8 @@ Page({
     touchStart: null,
     showMove: '',
     deleteIndex: null,
-    showLoading: true
+    showLoading: true,
+    tip: '加载中...'
   },
   onPageScroll (e) { 
     const scale = 1 - e.scrollTop / 100
@@ -75,7 +76,7 @@ Page({
     const {touchStart} = this.data
     const moveDistance = e.touches[0].pageX - touchStart
     this.setData({
-      showMove: moveDistance < 0 ? 'left' : 'right',
+      showMove: moveDistance < -20 ? 'left' : 'right',
       deleteIndex: e.target.dataset.index
     })
   },
@@ -91,8 +92,12 @@ Page({
     this.getUserDecide()
   },
 
-  onReady: function () {
-
+  async onPullDownRefresh() {
+    wx.showNavigationBarLoading()
+    this.setData({showLoading: true, tip: '刷新中...'})
+    this.getUserDecide()
+    wx.hideNavigationBarLoading()
+    wx.stopPullDownRefresh()
   },
 
   onShareAppMessage: function () {

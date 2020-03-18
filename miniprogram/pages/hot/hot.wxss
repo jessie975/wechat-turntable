@@ -3,6 +3,10 @@
   margin-top: 30rpx;
 }
 
+.last-card {
+  margin-bottom: 50rpx;
+}
+
 .footer {
   width: 750rpx;
 }
