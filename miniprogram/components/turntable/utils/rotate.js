@@ -55,7 +55,7 @@ export const distanceToStop = (series, checkIndex = -1) => {
  * @param {Number} startAngle 开始的角度
  */
 export const rotate = (context, series, x, y, r, distance, startAngle = 0, rotateEnd) => {
-  const changeRadian = (distance - startAngle) / 30
+  const changeRadian = (distance - startAngle) / 10
   startAngle += changeRadian
   if (distance - startAngle <= 0.05) {
     rotateEnd(startAngle)

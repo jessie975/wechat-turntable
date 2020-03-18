@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/history/history",
-    "pages/manage/manage",
-    "pages/hot/hot",
     "pages/home/home",
+    "pages/manage/manage",
+    "pages/history/history",
+    "pages/hot/hot",
     "pages/manage/add/add"
   ],
   "window": {

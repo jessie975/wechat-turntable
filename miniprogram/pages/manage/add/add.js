@@ -3,6 +3,8 @@ import $ from '../../../utils/tool'
 import Model from '../../../model/model'
 import router from '../../../utils/router'
 
+const app =  getApp()
+
 Page({
 
   data: {
@@ -169,6 +171,7 @@ Page({
         tipMassage = '创建转盘成功，即将跳转...'
       }
       $.tip(tipMassage, 1000)
+      app.globalData.decide = null
       router.reLaunch('home')
     }
   },

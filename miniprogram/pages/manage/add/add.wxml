@@ -10,7 +10,7 @@
   </view>
   <view class="group shaow bg-white flex align-center margin-top{{isCustom? '-lg':''}}" wx:for="{{options}}" wx:key>
     <text class="iconfont icon-jian_ text-orange" bindtap="delete" data-index="{{index}}"></text>
-    <input class="margin-left" style="width: 100%" placeholder="选项" data-index="{{index}}" value="{{item.text}}" bindinput="inputValue"/>
+    <input class="margin-left" style="width: 100%" placeholder="选项" data-index="{{index}}" value="{{item.text}}" bindinput="inputValue" maxlength="15"/>
     <view class="probability bg-white flex" wx:if="{{isCustom}}" data-index="{{index}}">
       <view class="progress bg-green active striped" style="width: {{item.width}}rpx"></view>
       <view data-index="{{index}}" class="action flex" style="left: {{item.width - 2}}rpx;" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend">

@@ -18,7 +18,7 @@
         class="card"
         class="{{index === list.length - 1 ? 'last-card': ''}}">
     <view class="move bg-red {{(deleteIndex === index) && showMove}}" catchtap="delete" data-index="{{index}}">
-      <text>删除</text>
+      删除
     </view>
   </card>
 </view>

@@ -59,13 +59,29 @@ Page({
   },
   async delete(e) {
     const {list} = this.data
+    const that = this
     const index = e.target.dataset.index
-    list.splice(index, 1)
-    this.setData({
-      list,
-      deleteIndex: null
+    wx.showModal({
+      title: '提示',
+      content: `是否确认删除${list[index].title}`,
+    }).then((res) => {
+      if (res.confirm) {
+        this.setData({showLoading: true, tip: '删除中...'})
+        model.deleteDecide(list[index]._id)
+        return true
+      } else if (res.cancel) {
+        return false
+      }
+    }).then((res) => {
+      if (res) {
+        list.splice(index, 1)
+        that.setData({
+          list,
+          deleteIndex: null
+        })
+        this.setData({showLoading: false})
+      }
     })
-    await model.deleteDecide(list[index]._id)
   },
   touchStart(e) {
     this.setData({
@@ -84,7 +100,8 @@ Page({
     const {result:list} = await model.getUserDecide()
     this.setData({
       list,
-      isEmpty: list.length === 0
+      isEmpty: list.length === 0,
+      showAdd: list.length !== 0
     })
     this.setData({showLoading: false})
   },
