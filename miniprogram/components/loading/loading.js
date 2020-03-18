@@ -1,5 +1,8 @@
 // components/loading/loading.js
 Component({
+  options: {
+    addGlobalClass: true,
+  },
   /**
    * 组件的属性列表
    */
@@ -17,7 +20,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-
   },
 
   /**

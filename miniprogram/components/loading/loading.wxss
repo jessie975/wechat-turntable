@@ -1,1 +1,70 @@
-@import '../../style/main.wxss';
+.cu-load {
+	display: block;
+	line-height: 3em;
+	text-align: center;
+}
+
+.cu-load::before {
+	font-family: "cuIcon";
+	display: inline-block;
+	margin-right: 6rpx;
+}
+
+.cu-load.loading::before {
+	content: "\e67a";
+	animation: cuIcon-spin 2s infinite linear;
+}
+
+.cu-load.load-cuIcon::before {
+	font-size: 32rpx;
+}
+
+.cu-load.load-cuIcon::after {
+	display: none;
+}
+
+.cu-load.load-cuIcon.over {
+	display: none;
+}
+
+.cu-load.load-modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 140rpx;
+	left: 0;
+	margin: auto;
+	width: 260rpx;
+	height: 260rpx;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 10rpx;
+	box-shadow: 0 0 0rpx 2000rpx rgba(255, 255, 255, 0.8);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	font-size: 28rpx;
+	z-index: 9999;
+	line-height: 2.4em;
+}
+
+.cu-load.load-modal .image {
+	width: 70rpx;
+	height: 70rpx;
+}
+
+.cu-load .logo {
+	animation: cuIcon-spin 1s infinite linear;
+}
+
+@keyframes cuIcon-spin {
+	0% {
+		-webkit-transform: rotate(0);
+		transform: rotate(0);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
