@@ -93,17 +93,6 @@ Component({
       stopMusic.onPlay(() => {})
     },
     /**
-     * 旋转振动
-     */
-    playVibrate() {
-      const playVibrate = setInterval(() => {
-        wx.vibrateShort({})
-      }, 50)
-      setTimeout(() => {
-        clearInterval(playVibrate)
-      }, 2000)
-    },
-    /**
      * 旋转结束
      */
     rotateEnd(startAngle) {
@@ -128,8 +117,8 @@ Component({
         this.setData({canClick: false})
         const {distance, checkedIndex} = distanceToStop(sector, checkIndex)
         this.setData({checkedIndex})
-        hasVibrate && this.playVibrate()
-        rotate(context, sector, radius, radius, radius, distance, 0, this.rotateEnd.bind(this))
+        // hasVibrate && this.playVibrate()
+        rotate(context, sector, radius, radius, radius, distance, 0, this.rotateEnd.bind(this), hasVibrate)
       }
     },
     touchStart(e) {
