@@ -10,7 +10,8 @@ Page({
   data: {
     list: [],
     noMore: false,
-    pageSum: -1
+    pageSum: -1,
+    showLoading: true
   },
 
   toAdd() {
@@ -47,32 +48,30 @@ Page({
       list,
       pageSum
     })
+    this.setData({showLoading: false})
   },
 
   onLoad() {
-    $.loading()
     this.getList()
-    $.hideLoading()
   },
 
   async onPullDownRefresh() {
     const {pageSum, list} = this.data
     wx.showNavigationBarLoading()
     if (pageSum > 1) {
-      $.loading()
+      this.setData({showLoading: true})
       const {list: newList} = await model.getHotDecides(pageSum)
       this.setData({
         list: [...list, ...newList],
         pageSum: pageSum - 1
       })
-      $.hideLoading()
     } else {
       $.tip('没有更多数据了')
       this.setData({
         noMore: true
       })
     } 
-    $.hideLoading()
+    this.setData({showLoading: false})
     wx.hideNavigationBarLoading()
     wx.stopPullDownRefresh()
   },

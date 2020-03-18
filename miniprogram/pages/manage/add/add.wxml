@@ -37,3 +37,5 @@
     <text class="text-gray">例如：目前有两个选项，每个选项所占比例为50，那么每一项的概率就是 50 / (50 + 50)，也就是 1 / 2</text>
   </view>
 </view>
+
+<loading show="{{showLoading}}"></loading>

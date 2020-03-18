@@ -25,3 +25,5 @@
 <view class="add-btn shadow-lg bg-green" style="transform: scale({{addBtnScale}})" wx:if="{{!isEmpty && showAdd}}" bindtap="toAdd">
   <text class="iconfont icon-jia" style="width: 80%; height: 80%;"></text>
 </view>
+
+<loading show="{{showLoading}}"></loading>

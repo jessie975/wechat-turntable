@@ -44,4 +44,5 @@
   </view>
 </view>
 
+<loading show="{{showLoading}}"></loading>
 

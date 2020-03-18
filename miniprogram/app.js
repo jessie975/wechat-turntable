@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-import $ from './utils/tool'
 import Model from './model/model'
 
 App({
@@ -28,13 +27,11 @@ App({
     this.globalData.env = env
   },
   async login() {
-    $.loading()
     const model = new Model()
     const {data: info} = await model.getUserInfo()
     if (info.length === 0) {
       await model.register()
     }
-    $.hideLoading()
   },
   onLaunch() {
     this.initEnv()

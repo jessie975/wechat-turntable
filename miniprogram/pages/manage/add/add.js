@@ -19,7 +19,8 @@ Page({
     isHot: false,
     beforeOrder: 0,
     beforeWidth: 0,
-    showProblem: false
+    showProblem: true,
+    showLoading: true
   },
 
   showProblem() {
@@ -175,7 +176,6 @@ Page({
   onLoad(options) {
     const {update = false} = options
     if (update) {
-      $.loading()
       const that = this
       const eventChannel = this.getOpenerEventChannel()
       eventChannel.on('updateDecide', function({data, isHot}) {
@@ -189,9 +189,9 @@ Page({
           isUpdate: true,
           isHot
         })
-        $.hideLoading()
       })
     }
+    this.setData({showLoading: false})
   },
 
   onReady() {

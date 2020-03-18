@@ -9,12 +9,13 @@ Page({
 
   data: {
     list: [],
-    isEmpty: true,
+    isEmpty: false,
     addBtnScale: 1,
-    showAdd: true,
+    showAdd: false,
     touchStart: null,
     showMove: '',
-    deleteIndex: null
+    deleteIndex: null,
+    showLoading: true
   },
   onPageScroll (e) { 
     const scale = 1 - e.scrollTop / 100
@@ -79,13 +80,12 @@ Page({
     })
   },
   async getUserDecide() {
-    $.loading()
     const {result:list} = await model.getUserDecide()
     this.setData({
       list,
       isEmpty: list.length === 0
     })
-    $.hideLoading()
+    this.setData({showLoading: false})
   },
   onLoad() {
     this.getUserDecide()

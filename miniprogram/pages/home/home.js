@@ -22,7 +22,8 @@ Page({
     setInterId: '',
     _id: null,
     updateResult: false,
-    showTurntable: false
+    showTurntable: false,
+    showLoading: true
   },
 
   showSetting() {
@@ -46,9 +47,9 @@ Page({
     if (!app.globalData.rotateStart) {
       this.setData({
         showCheat: true,
+        showTurntable: false,
         cheatOptions
       })
-      wx.hideTabBar()
     } else {
       $.tip('当前还有决定未结束，请稍后~')
     }
@@ -71,16 +72,21 @@ Page({
     if (this.data.cancelCheat) {
       this.setData({checkIndex: -1})
     }
-    this.setData({showCheat: false})
-    wx.showTabBar()
+    this.setData({
+      showCheat: false
+    })
+    setTimeout(() => {
+      this.setData({showTurntable: true})
+    }, 100)
   },
 
   hiddenCheat() {
     this.setData({
-      showCheat: false,
-      checkIndex: -1
+      showCheat: false
     })
-    wx.showTabBar()
+    setTimeout(() => {
+      this.setData({showTurntable: true})
+    }, 100)
   },
 
   changeSetting(e) {
@@ -95,6 +101,7 @@ Page({
 
   rotateStart(e) {
     app.globalData.rotateStart = e.detail
+    this.setData({showSetting: false})
   },
 
   getResult(e) {
@@ -129,6 +136,13 @@ Page({
     return options
   },
 
+  rander() {
+    this.setData({
+      showTurntable: true,
+      showLoading: false
+    })
+  },
+
   async getDataFormUserDb() {
     const {result} = await model.getUserDecide()
     let options = []
@@ -149,8 +163,7 @@ Page({
       title,
       _id
     })
-    this.setData({showTurntable: true})
-    $.hideLoading()
+    this.rander()
   },
 
   async getDecide() {
@@ -162,8 +175,7 @@ Page({
         options,
         _id: decide._id
       })
-      this.setData({showTurntable: true})
-      $.hideLoading()
+      this.rander()
     } else {
       this.getDataFormUserDb()
     }
@@ -177,8 +189,7 @@ Page({
       options: this.dealData(options),
       checkIndex: option.checkIndex - 0
     })
-    this.setData({showTurntable: true})
-    $.hideLoading()
+    this.rander()
     this.selectComponent('#myPizza').rotateAuto()
   },
 
@@ -199,7 +210,6 @@ Page({
   },
 
   onLoad(options) {
-    $.loading()
     this.getSettingFormStorage()
     if (Object.keys(options).length !== 0) {
     // 从分享入口进首页

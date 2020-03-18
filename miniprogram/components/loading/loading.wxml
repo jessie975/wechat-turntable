@@ -1,0 +1,4 @@
+<view class='cu-load load-modal' wx:if="{{show}}">
+  <image src='/images/logo.png' class='logo' mode='aspectFit'></image>
+  <view class='text-darkGray'>{{tip}}</view>
+</view>

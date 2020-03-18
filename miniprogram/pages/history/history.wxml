@@ -20,3 +20,5 @@
     <view class="time text-gray">{{item.date}}</view>
   </view>
 </view>
+
+<loading show="{{showLoading}}" tip="{{tip}}"></loading>

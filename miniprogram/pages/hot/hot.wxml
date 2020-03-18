@@ -17,3 +17,5 @@
     <image src="../../images/footer.png"/>
   </view>
 </view>
+
+<loading show="{{showLoading}}"></loading>

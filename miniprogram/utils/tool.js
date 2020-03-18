@@ -23,25 +23,16 @@ export default {
     )
   },
 
-  loading(title = '加载中...', mask = true) {
-    return new Promise(resolve => { wx.showLoading({title, mask, complete: resolve}) })
-  },
-
-  hideLoading() { wx.hideLoading() },
-
   // 保留两位小数点
   saveTwoNum(num) {
     return Math.floor(num * 100)/100
   },
 
-  callCloud(options, showLoading = true) {
-    showLoading && wx.showLoading({title: '获取数据中', mask: true})
+  callCloud(options) {
     return wx.cloud.callFunction(options).then(res => {
-      showLoading && wx.hideLoading()
       return res
     }).catch(e => {
       console.log(e)
-      showLoading && wx.hideLoading()
       throw e
     })
   }

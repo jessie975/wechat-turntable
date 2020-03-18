@@ -6,7 +6,9 @@ const model = new Model()
 Page({
   data: {
     list: [],
-    isEmpty: false
+    isEmpty: false,
+    showLoading: true,
+    tip: '加载中'
   },
 
   async cleanHistory() {
@@ -16,6 +18,7 @@ Page({
       content: '确认清除所有历史记录吗？',
     }).then((res) => {
       if (res.confirm) {
+        this.setData({showLoading: true, tip: '清空中...'})
         const result = model.cleanHistory()
         return result
       } else if (res.cancel) {
@@ -41,6 +44,7 @@ Page({
       list,
       isEmpty: list.length === 0
     })
+    this.setData({showLoading: false})
   },
 
   onLoad() {
