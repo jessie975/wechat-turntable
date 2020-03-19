@@ -197,8 +197,10 @@ Page({
       isShare: true
     })
     this.rander()
-    this.selectComponent('#myPizza').rotateAuto()
-    this.setData({checkIndex: -1}) // 从分享页进入默认转动一次后修改选中为默认
+    setTimeout(() => {
+      this.selectComponent('#myPizza').rotateAuto()
+      this.setData({checkIndex: -1}) // 从分享页进入默认转动一次后修改选中为默认
+    }, 400)
   },
 
   getSettingFormStorage() {

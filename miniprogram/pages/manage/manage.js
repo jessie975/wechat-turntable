@@ -73,13 +73,17 @@ Page({
         return false
       }
     }).then((res) => {
+      let isEmpty = false
       if (res) {
         list.splice(index, 1)
         that.setData({
           list,
           deleteIndex: null
         })
-        this.setData({showLoading: false})
+        if (list.length === 0) {
+          isEmpty = true
+        }
+        this.setData({showLoading: false, isEmpty})
       }
     })
   },
