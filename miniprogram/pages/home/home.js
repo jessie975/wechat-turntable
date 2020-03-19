@@ -23,7 +23,8 @@ Page({
     _id: null,
     updateResult: false,
     showTurntable: false,
-    showLoading: true
+    showLoading: true,
+    isShare: false
   },
 
   showSetting() {
@@ -106,7 +107,7 @@ Page({
 
   getResult(e) {
     // 将记录存入数据库
-    const {title, options, _id, checkIndex} = this.data
+    const {title, options, _id, checkIndex, isShare} = this.data
     const history = {
       _id,
       title,
@@ -115,8 +116,10 @@ Page({
       isCheat: checkIndex !== -1,
       checkIndex: e.detail
     }
-    model.updateTimes(_id)
-    model.addHistory(history)
+    if (!isShare) {
+      model.updateTimes(_id)
+      model.addHistory(history)
+    }
     app.globalData.rotateStart = false
     this.setData({
       result: e.detail,
@@ -124,7 +127,9 @@ Page({
     })
     const currentPage = getCurrentPages()[0].route
     if (currentPage === 'pages/home/home') {
-      const msg = `你选中了${this.data.options[e.detail].text}`
+      const who = isShare ? 'Ta' : '你'
+      const msg = `${who}选中了${this.data.options[e.detail].text}`
+      this.setData({isShare: false})
       $.tip(msg)
     }
   },
@@ -183,14 +188,17 @@ Page({
 
   async fromShare(option) {
     const {data} = await model.toHomeFromShare(option.id)
-    const {options, title} = data[0]
+    const {options, title, _id} = data[0]
     this.setData({
+      _id,
       title,
       options: this.dealData(options),
-      checkIndex: option.checkIndex - 0
+      checkIndex: option.checkIndex - 0,
+      isShare: true
     })
     this.rander()
     this.selectComponent('#myPizza').rotateAuto()
+    this.setData({checkIndex: -1}) // 从分享页进入默认转动一次后修改选中为默认
   },
 
   getSettingFormStorage() {
