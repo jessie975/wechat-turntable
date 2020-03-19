@@ -59,13 +59,13 @@ Component({
     /**
      * 转盘初始化
      */
-    async init() {
+    init() {
       const {sector, width, canvasId} = this.data
       const clientWidth = this.getRatioRadius()
       const radius = width / 2 * clientWidth // 圆心x,y,半径相等
       const context = wx.createCanvasContext(canvasId, this)
       // const context = canvas.getContext()
-      await draw(context, sector, radius, radius, radius, 0) // 初始角度0
+      draw(context, sector, radius, radius, radius, 0) // 初始角度0
       this.setData({
         context,
         radius
@@ -144,7 +144,6 @@ Component({
       if (canClick) {
         const touch = e.changedTouches[0]
         const distance = getDistance(touch.x, touch.y, radius, startX, startY)
-        console.log('touchMove -> distance', distance)
         const result = distance + remeberDistance
         draw(context, sector, radius, radius, radius, result)
       }
