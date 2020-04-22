@@ -19,7 +19,7 @@ Component({
     },
     checkIndex: { // 作弊模式选中的扇区索引
       type: Number,
-      value: 3,
+      value: -1,
       observer: '__checkIndex'
     },
     hasMusic: { // 音乐开关

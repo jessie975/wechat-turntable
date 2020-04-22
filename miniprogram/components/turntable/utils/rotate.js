@@ -34,7 +34,7 @@ export const distanceToStop = (series, checkIndex = -1) => {
   const minDistance = currentPieIndex === 0 ? 0 : targetBlockList(0, currentPieIndex).reduce(reducer)
   const maxDistance = currentPieIndex === 0 ? blockList[currentPieIndex] : targetBlockList(0, currentPieIndex + 1).reduce(reducer)
   const targetDistance = Math.random() * (maxDistance - minDistance) + minDistance
-  // 因为指针是垂直向上的，相当坐标系的Math.PI/2,所以我们这里要进行判断来移动角度
+  // 因为指针是垂直向上的，相当坐标系的Math.PI * 3/2,所以我们这里要进行判断来移动角度
   distance = Math.PI * 3 / 2 - targetDistance
   distance = distance > 0 ? distance : Math.PI * 2 + distance
   // 额外加上后面的值，是为了让转盘多转动几圈，体验更好
