@@ -3,7 +3,11 @@ const pages = {
   manage: '/pages/manage/manage',
   add: "/pages/manage/add/add",
   addUpdate: "/pages/manage/add/add?update=true",
-  hot: '/pages/hot/hot'
+  hot: '/pages/hot/hot',
+  user: '/pages/user/user',
+  history: '/pages/history/history',
+  useRecord: '/pages/useRecord/useRecord',
+  about: '/pages/about/about'
 }
 
 export default {

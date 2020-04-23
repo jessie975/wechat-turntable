@@ -1,0 +1,31 @@
+<view class="all-time flex justify-center flex-direction align-center">
+    <view class="number text-sl text-yellow">{{allTime}}</view>
+    <view class="describe margin-top">总共做了{{allTime}}次决定</view>
+</view>
+
+<view class="statistical flex justify-around bg-white">
+    <view class="item">
+        <view class="number text-green">{{create}}</view>
+        <view class="describe margin-top-sm">创建的决定</view>
+    </view>
+    <view class="cut-line"></view>
+    <view class="item share">
+        <view class="number text-green">{{share}}</view>
+        <view class="describe margin-top-sm">分享的决定</view>
+    </view>
+    <view class="cut-line"></view>
+    <view class="item">
+        <view class="number text-green">{{delete}}</view>
+        <view class="describe margin-top-sm">删除的决定</view>
+    </view>
+</view>
+
+<view class="detailed margin-top">
+    <view class="title margin-left">各决定使用情况</view>
+    <view class="list margin-top">
+        <view class="item bg-white padding-left padding-right-lg flex justify-between" wx:for="{{list}}">
+            <view class="title">{{item.title}}</view>
+            <view class="time">{{item.time}}次</view>
+        </view>
+    </view>
+</view>

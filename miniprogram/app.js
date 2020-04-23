@@ -5,16 +5,15 @@ App({
   initUiGlobal() {
     wx.getSystemInfo({
       success: e => {
+        this.globalData.windowHeight = e.windowHeight
         this.globalData.StatusBar = e.statusBarHeight
-        this.globalData.screenHeight = e.screenHeight
-        const capsule = wx.getMenuButtonBoundingClientRect()
+        let capsule = wx.getMenuButtonBoundingClientRect()
         if (capsule) {
           this.globalData.Custom = capsule
           this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight
         } else {
-          this.globalData.CustomBar = e.statusBarHeight + 44
+          this.globalData.CustomBar = e.statusBarHeight + 50
         }
-        this.globalData.tabbarHeight = e.screenHeight - e.statusBarHeight - this.globalData.CustomBar - e.windowHeight
       }
     })
   },

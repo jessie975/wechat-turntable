@@ -56,6 +56,11 @@ Page({
     this.getList()
   },
 
+  onShow:function(){
+    // 生命周期函数--监听页面显示
+   console.log("hot onShow")
+  },
+
   async onPullDownRefresh() {
     wx.showNavigationBarLoading()
     this.setData({showLoading: true, tip: '刷新中...'})

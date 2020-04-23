@@ -19,4 +19,4 @@
   </view>
 </view>
 
-<loading show="{{showLoading}}" tip="{{tip}}"></loading>
+<loading show="{{false}}" tip="{{tip}}"></loading>

@@ -1,0 +1,15 @@
+<view>
+    <view class="avatar">
+        <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <view class="func-entry history bg-green" bindtap="navigateTo" data-type="history">历史记录</view>
+    <view class="func-entry use-record bg-blue" bindtap="navigateTo" data-type="useRecord">使用统计</view>
+    <view class="func-entry comment bg-yellow">
+        <button open-type='feedback' class="comment-btn bg-yellow">意见反馈</button>
+    </view>
+    <view class="func-entry about bg-pink" bindtap="navigateTo" data-type="about">关于作者</view>
+    <view class="move-circle first"></view>
+    <view class="move-circle second"></view>
+    <view class="move-circle three"></view>
+</view>
+<loading show="{{showLoading}}"></loading>

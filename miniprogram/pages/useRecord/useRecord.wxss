@@ -1,0 +1,22 @@
+.all-time {
+    width: 100%;
+    height: 300rpx;
+}
+.statistical {
+    padding: 20rpx;
+}
+.statistical .item {
+    text-align: center;
+}
+.statistical .number {
+    font-weight: 700;
+}
+.statistical .cut-line {
+    width: 1px;
+    background-color: #f6f6f6;
+}
+.detailed .item {
+    height: 80rpx;
+    line-height: 80rpx;
+    border-bottom: 1px solid #f6f6f6;
+}
