@@ -1,0 +1,36 @@
+.all-time {
+    width: 100%;
+    height: 300rpx;
+    overflow: hidden;
+    position: relative;
+}
+.all-time .gif-wave{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    mix-blend-mode: screen;  
+    height: 100rpx;   
+}
+.statistical {
+    padding: 20rpx;
+}
+.statistical .item {
+    text-align: center;
+}
+.statistical .number {
+    font-weight: 700;
+}
+.statistical .cut-line {
+    width: 1px;
+    background-color: #f6f6f6;
+}
+.statistical .describe {
+    margin-top: 10rpx;
+}
+.detailed .item {
+    height: 80rpx;
+    line-height: 80rpx;
+    border-bottom: 1px solid #f6f6f6;
+}

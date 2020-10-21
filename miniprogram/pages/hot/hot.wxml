@@ -1,15 +1,25 @@
-<view class="card-box flex justify-center" wx:for="{{list}}" wx:key="{{index}}" >
-  <card title="{{item.title}}" 
-        index="{{index}}"
-        sector="{{item.options}}"
-        bind:getEditIndex="toEdit"
-        bindtap="toHome"
-        data-index="{{index}}"
-        class="{{index === list.length - 1 ? 'last-card': ''}}">
-  </card>
+<view class="card-box bg-white shadow" 
+      wx:for="{{list}}" 
+      wx:key="{{index}}" 
+      data-index="{{index}}"
+      catchtap="toHome">
+  <view class="title text-lg text-bold flex">
+    <view class="title-content text-cut">
+      <text class="text">{{item.title}}</text>
+    </view>
+    <view class="edit margin-right" 
+          style="width: 40rpx; height: 40rpx; position: absolute; right: 30rpx" 
+          catchtap="editDecide" 
+          data-index="{{index}}">
+      <image src="../../images/edit.png" style="width: 100%; height: 100%;"/>
+    </view>
+  </view>
+  <scroll-view scroll-x="{{true}}" class="content" enable-flex="{{true}}">
+    <text class="item text-df">{{item.text}}</text>
+  </scroll-view>
 </view>
 
-<view class="footer flex justify-center align-center margin-bottom" wx:if="{{noMore}}">
+<!-- <view class="footer flex justify-center align-center margin-bottom" wx:if="{{noMore}}">
   <view class="footer-img margin-right">
     <image src="../../images/footer.png" />
   </view>
@@ -17,6 +27,6 @@
   <view class="footer-img margin-left" style="transform:scaleX(-1);">
     <image src="../../images/footer.png"/>
   </view>
-</view>
+</view> -->
 
-<loading show="{{showLoading}}" tip="{{tip}}"></loading>
+<loading show="{{false}}" tip="{{tip}}"></loading>

@@ -6,7 +6,6 @@ const app =  getApp()
 const model = new Model()
 
 Page({
-
   data: {
     list: [],
     noMore: false,
@@ -15,9 +14,6 @@ Page({
     tip: '加载中...'
   },
 
-  toAdd() {
-    router.push('add')
-  },
   toEdit(e) {
     const {list} = this.data
     router.push('addUpdate', {}, res => {
@@ -27,9 +23,11 @@ Page({
       })
     })
   },
+  
   toHome(e) {
+    console.log(e)
     const {list} = this.data
-    const {title, options, _id} = list[e.target.dataset.index]
+    const {title, options, _id} = list[e.currentTarget.dataset.index]
     if (!app.globalData.rotateStart) {
       app.globalData.decide = {
         title,
@@ -40,13 +38,26 @@ Page({
     } else {
       $.tip('还有决定未结束，请稍后再切换哦~')
     }
-    
   },
 
   async getList() {
     const {list, pageSum} = await model.getHotDecides()
+    const newList = []
+    list.forEach(item => {
+      const options = []
+      item.options.forEach(item => {
+        options.push(item.text)
+      })
+      const obj = {
+        _id: item._id,
+        title: item.title,
+        text: options.join('/'),
+        options: item.options
+      }
+      newList.push(obj)
+    })
     this.setData({
-      list,
+      list: newList,
       pageSum
     })
     this.setData({showLoading: false})
@@ -80,9 +91,5 @@ Page({
       })
     } 
     this.setData({showLoading: false})
-  },
-
-  onShareAppMessage: function () {
-
   }
 })

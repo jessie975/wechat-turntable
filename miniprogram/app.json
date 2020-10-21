@@ -1,5 +1,8 @@
 {
   "pages": [
+    "pages/user/user",
+    "pages/useRecord/useRecord",
+    "pages/about/about",
     "pages/home/home",
     "pages/manage/manage",
     "pages/history/history",
@@ -35,8 +38,8 @@
         "selectedIconPath": "/images/icon/hot_on.png"
       },
       {
-        "pagePath": "pages/history/history",
-        "text": "历史记录",
+        "pagePath": "pages/user/user",
+        "text": "个人中心",
         "iconPath": "/images/icon/history.png",
         "selectedIconPath": "/images/icon/history_on.png"
       }
