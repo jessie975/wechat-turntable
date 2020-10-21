@@ -1,3 +1,8 @@
+.top {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
 .all-time {
     width: 100%;
     height: 300rpx;
@@ -13,6 +18,12 @@
     mix-blend-mode: screen;  
     height: 100rpx;   
 }
+.avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 140rpx;
+    height: 140rpx;
+}
 .statistical {
     padding: 20rpx;
 }
@@ -26,11 +37,31 @@
     width: 1px;
     background-color: #f6f6f6;
 }
-.statistical .describe {
+.statistical .item {
     margin-top: 10rpx;
+}
+.detailed {
+    margin-top: 480rpx;
 }
 .detailed .item {
     height: 80rpx;
     line-height: 80rpx;
     border-bottom: 1px solid #f6f6f6;
+}
+.card {
+    width: 700rpx;
+    height: 150rpx;
+    border-radius: 10rpx;
+    margin: 20rpx auto 0;
+}
+.last-card {
+    margin-bottom: 50rpx;
+}
+.comment-btn {
+    width: 140rpx !important;
+    padding: 0;
+    margin: 0;
+    font-size: 28rpx;
+    font-weight: 400 !important;
+    color: #555;
 }

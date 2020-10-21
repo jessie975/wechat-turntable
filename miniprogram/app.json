@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/user/user",
     "pages/useRecord/useRecord",
     "pages/about/about",
-    "pages/home/home",
     "pages/manage/manage",
     "pages/history/history",
     "pages/hot/hot",
@@ -38,10 +38,10 @@
         "selectedIconPath": "/images/icon/hot_on.png"
       },
       {
-        "pagePath": "pages/user/user",
+        "pagePath": "pages/useRecord/useRecord",
         "text": "个人中心",
-        "iconPath": "/images/icon/history.png",
-        "selectedIconPath": "/images/icon/history_on.png"
+        "iconPath": "/images/icon/user.png",
+        "selectedIconPath": "/images/icon/user_on.png"
       }
     ]
   },

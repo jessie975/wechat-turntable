@@ -7,7 +7,7 @@
     <view class="func-entry comment bg-yellow">
         <button open-type='feedback' class="comment-btn bg-yellow">意见反馈</button>
     </view>
-    <view class="func-entry about bg-pink" bindtap="navigateTo" data-type="about">关于作者</view>
+    <view class="func-entry about bg-pink" bindtap="navigateTo" data-type="about">关于</view>
     <view class="move-circle first"></view>
     <view class="move-circle second"></view>
     <view class="move-circle three"></view>

@@ -1,32 +1,50 @@
-<view class="all-time flex justify-center flex-direction align-center bg-green">
-    <view class="number text-sl">{{allTime}}</view>
-    <view class="describe margin-top">总共做了{{allTime}}次决定</view>
-    <image src="/images/wave.gif" mode="scaleToFill"  class="gif-wave"/>
-</view>
-
-<view class="statistical flex justify-around bg-white">
-    <view class="item">
-        <view class="number text-green">{{create}}</view>
-        <view class="describe">创建的决定</view>
+<view class="top">
+    <view class="all-time flex justify-center flex-direction align-center bg-green">
+        <view class="avatar">
+            <open-data type="userAvatarUrl"></open-data>
+        </view>
+        <image src="/images/wave.gif" mode="scaleToFill" class="gif-wave" />
     </view>
-    <view class="cut-line"></view>
-    <view class="item share">
-        <view class="number text-green">{{share}}</view>
-        <view class="describe">分享的决定</view>
-    </view>
-    <view class="cut-line"></view>
-    <view class="item">
-        <view class="number text-green">{{delete}}</view>
-        <view class="describe">删除的决定</view>
-    </view>
-</view>
-
-<view class="detailed margin-top">
-    <view class="title margin-left">各决定使用情况</view>
-    <view class="list margin-top">
-        <view class="item bg-white padding-left padding-right-lg flex justify-between" wx:for="{{list}}">
-            <view class="title">{{item.title}}</view>
-            <view class="time">{{item.time}}次</view>
+    <view class="statistical flex justify-around bg-white shadow">
+        <view class="item">
+            <text class="iconfont icon-yijianfankui text-xxl"></text>
+            <button open-type='feedback' class="comment-btn">意见反馈</button>
+        </view>
+        <view class="cut-line"></view>
+        <view class="item share">
+            <text class="iconfont icon-shangwutubiao- text-sl"></text>
+            <view class="describe">休息一下</view>
         </view>
     </view>
 </view>
+<view class="detailed margin-top">
+    <view class="title margin-left flex justify-between">
+        <view class="text-bold">历史记录</view>
+        <view class="clean margin-right" bindtap="cleanHistory" wx:if="{{!isEmpty}}">
+            <text class="margin-right-sm">清空</text>
+            <text class="iconfont icon-qingkong text-xl"></text>
+        </view>
+    </view>
+    <view class="card bg-white padding-sm {{index === list.length - 1 ? 'last-card': ''}}" wx:for="{{list}}" wx:key="{{index}}">
+        <view class="title margin-bottom-sm flex justify-between">
+            <view class="text-bold text-lg flex-sub">{{item.title}}</view>
+            <button open-type="share" style="width: 55rpx; height: 55rpx; padding: 0;" wx:if="{{!item.isCheat}}" data-index="{{index}}">
+                <image src="../../images/share.png" style="width: 100%; height: 100%;" />
+            </button>
+            <view class="tip" wx:if="{{item.isCheat}}">作弊模式</view>
+        </view>
+        <view class="footer flex justify-between align-end">
+            <view class="result flex-sub text-cut">
+                <text class="text-green">答案：</text>
+                {{item.result}}
+            </view>
+            <view class="time text-gray">{{item.date}}</view>
+        </view>
+    </view>
+    <view class="empty" style="width: 250rpx; height: 200rpx; margin: 150rpx auto;text-align: center;" wx:if="{{isEmpty}}">
+        <image src="../../images/empty.png" style="width: 100%; height: 100%" />
+        <view class="text-lg margin-top">空空如也</view>
+    </view>
+</view>
+
+<loading show="{{showLoading}}" tip="{{tip}}"></loading>
