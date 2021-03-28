@@ -34,10 +34,18 @@ App({
       await model.register()
     }
   },
+  setAd() {
+    try {
+      wx.setStorageSync('hasGetAd', false)
+    } catch (e) {
+      console.log( e)
+    }
+  },
   onLaunch() {
     this.initEnv()
     this.initUiGlobal()
     this.login()
+    this.setAd()
   },
   globalData: {
     StatusBar: null,

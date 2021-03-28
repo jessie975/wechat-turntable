@@ -11,9 +11,9 @@
             <button open-type='feedback' class="comment-btn">意见反馈</button>
         </view>
         <view class="cut-line"></view>
-        <view class="item share">
+        <view class="item share" bindtap="payFor">
             <text class="iconfont icon-shangwutubiao- text-sl"></text>
-            <view class="describe">休息一下</view>
+            <view class="describe">打赏作者</view>
         </view>
     </view>
 </view>

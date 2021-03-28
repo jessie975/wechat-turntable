@@ -11,6 +11,12 @@ Page({
     tip: '加载中...'
   },
 
+  payFor() {
+    wx.previewImage({
+      urls: ['https://7475-turntable-prod-1301517626.tcb.qcloud.la/payFor.png?sign=043a1ce036142e524f2179e863c127ac&t=1606024518']
+    })
+  },
+
   async cleanHistory() {
     const that = this
     wx.showModal({

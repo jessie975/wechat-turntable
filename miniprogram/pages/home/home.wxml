@@ -1,7 +1,7 @@
 <!-- 标题-结果 -->
 <view class="title-result flex flex-direction justify-center align-center margin-top-lg">
   <view class="title text-xl text-bold">{{title}}</view>
-  <view class="result text-df margin-top text-bold animation-scale-down {{updateResult ? 'get-result' : ''}}">{{options[result].text || '...........'}}</view>
+  <view class="result text-df margin-top text-bold {{updateResult ? 'get-result animation-scale-down' : ''}}">{{options[result].text || '...........'}}</view>
 </view>
 <!-- 转盘 -->
 <view class="margin-top-xxl flex justify-center" wx:if="{{showTurntable}}">
@@ -24,12 +24,12 @@
   </view>
   <view class="vibrate-btn flex justify-between">
     <view class="vibrate bg-white {{showSetting?'animation-scale-up':'hidden'}}" bindtap="changeSetting" data-type="vibrate"><text class="iconfont icon-zhendongmoshi text-xxl text-bold {{vibrate?'text-blue':'text-gray'}}"></text></view>
-    <view class="btn iconfont text-white bg-orange icon-{{showSetting?'quxiao rotate-in':'click rotate-out'}}" bindtap="showSetting"></view>
+    <view class="btn iconfont text-white bg-orange icon-quxiao {{showSetting?' rotate-in':'rotate-out'}}" bindtap="showSetting"></view>
   </view>
 </view>
 <!-- 作弊模式弹框 -->
 <view class="cu-modal {{showCheat?'show':''}}" bindtap="hiddenCheat">
-  <view class="bg-white cu-dialog padding-lg">
+  <view class="bg-white cu-dialog padding-lr-lg padding-top">
     <view class="cheat-img bg-white flex justify-center align-center">
       <image src="../../images/cheat.png" style="width: 80%; height: 80%;"/>
     </view>
@@ -40,8 +40,13 @@
     <view class="options flex flex-wrap justify-center">
       <view class="item {{checkIndex === index ? 'choosed bg-green text-white':''}}" wx:for="{{cheatOptions}}" wx:key="{{index}}" data-index="{{index}}" catchtap="chooseCheat">{{item}}</view>
     </view>
+    <view class="ad-tip" wx:if="{{!hasGetAd}}">观看广告15秒，解锁作弊模式</view>
     <view class="submit" wx:if="{{checkIndex !== -1}}" catchtap="cheatSubmit">确定</view>
   </view>
+</view>
+<!-- 广告 -->
+<view class="ad-wrap" hidden="{{!adState}}">
+  <ad unit-id="adunit-10169da7766e56c0"></ad>
 </view>
 
 <loading show="{{showLoading}}"></loading>

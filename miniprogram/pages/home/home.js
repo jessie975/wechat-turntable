@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import Model from '../../model/model'
 import $ from '../../utils/tool'
+import {destroyVideoAd, initVideoAd, onShowVideoAd} from '../../utils/ad'
 
 const colorful = ['#5B8FF9', '#6DC8EC', '#E8684A', '#F6BD16', '#5D7092', '#5AD8A6','#9270CA', '#FEB7D5', '#C8DAFC', '#F6BD16', '#5D7092', '#5AD8A6']
 
@@ -24,7 +25,10 @@ Page({
     updateResult: false,
     showTurntable: false,
     showLoading: true,
-    isShare: false
+    isShare: false,
+    videoAd: null,
+    giveCheckIndex: -1,
+    hasGetAd: false
   },
 
   showSetting() {
@@ -65,20 +69,51 @@ Page({
       }
     }
     this.setData({
-      checkIndex: index
+      checkIndex: index,
+      giveCheckIndex: index
     })
   },
 
-  cheatSubmit() {
-    if (this.data.cancelCheat) {
-      this.setData({checkIndex: -1})
-    }
+  giveReward() {
     this.setData({
-      showCheat: false
+      showCheat: false,
+      checkIndex: this.data.giveCheckIndex
     })
     setTimeout(() => {
       this.setData({showTurntable: true})
     }, 100)
+
+    if (!this.data.hasGetAd) {
+      wx.showToast({
+        title: '作弊模式激活成功 ~',
+        icon: 'none'
+      })
+    }
+    // 设置已经看过广告
+    try {
+      wx.setStorageSync('hasGetAd', true)
+      this.setData({
+        hasGetAd: true
+      })
+    } catch (e) {
+      console.log( e)
+    }
+  },
+
+  cheatSubmit() {
+    if (this.data.cancelCheat) {
+      this.setData({
+        checkIndex: -1,
+        showCheat: false
+      })
+      setTimeout(() => {
+        this.setData({showTurntable: true})
+      }, 100)
+    } else if (this.data.hasGetAd) {
+      this.giveReward()
+    } else {
+      this.onShowVideoAd()
+    }
   },
 
   hiddenCheat() {
@@ -102,7 +137,10 @@ Page({
 
   rotateStart(e) {
     app.globalData.rotateStart = e.detail
-    this.setData({showSetting: false})
+    this.setData({
+      showSetting: false,
+      updateResult: false
+    })
   },
 
   getResult(e) {
@@ -219,6 +257,10 @@ Page({
     }
   },
 
+  onShowVideoAd() {
+    onShowVideoAd.call(this)
+  },
+
   onLoad(options) {
     this.getSettingFormStorage()
     if (Object.keys(options).length !== 0) {
@@ -231,10 +273,25 @@ Page({
       // 先从全局变量里取，如果没有则从用户最近创建的决定里面取，如果还是没有就给默认的
       this.getDecide()
     }
+
+    // 是否已经看过广告
+    const that = this
+    wx.getStorage({
+      key: 'hasGetAd',
+      success (res) {
+        that.setData({
+          hasGetAd: res.data
+        })
+      }
+    })
   },
 
-  onReady: function () {
+  onUnload() {
+    destroyVideoAd.call(this)
+  },
 
+  onReady() {
+    initVideoAd.call(this, 'home', this.giveReward.bind(this))
   },
 
   onShareAppMessage: function () {
