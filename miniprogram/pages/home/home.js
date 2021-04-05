@@ -28,13 +28,17 @@ Page({
     isShare: false,
     videoAd: null,
     giveCheckIndex: -1,
-    hasGetAd: false
+    hasGetAd: false,
+    hasShowCheatTip: false,
+    moveTip: false
   },
 
   showSetting() {
     this.setData({
-      showSetting: !this.data.showSetting
+      showSetting: !this.data.showSetting,
+      hasShowCheatTip: true
     })
+    wx.setStorageSync('hasShowCheatTip', true)
   },
 
   showCheat() {
@@ -281,6 +285,15 @@ Page({
       success (res) {
         that.setData({
           hasGetAd: res.data
+        })
+      }
+    })
+    // 是否已经显示作弊模式提示
+    wx.getStorage({
+      key: 'hasShowCheatTip',
+      success (res) {
+        that.setData({
+          hasShowCheatTip: res.data
         })
       }
     })

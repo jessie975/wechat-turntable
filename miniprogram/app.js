@@ -37,6 +37,7 @@ App({
   setAd() {
     try {
       wx.setStorageSync('hasGetAd', false)
+      wx.setStorageSync('hasShowCheatTip', false)
     } catch (e) {
       console.log( e)
     }

@@ -49,5 +49,7 @@
   <ad unit-id="adunit-10169da7766e56c0"></ad>
 </view>
 
+<view class="cheat-tip bg-orange animation-slide-left" wx:if="{{!hasShowCheatTip}}">试试作弊模式，结果由你指定！</view>
+
 <loading show="{{showLoading}}"></loading>
 
